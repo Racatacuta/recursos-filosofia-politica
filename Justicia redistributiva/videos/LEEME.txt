@@ -1,0 +1,13 @@
+VIDEOS DEL RECURSO «DETRÁS DEL VELO»
+
+Copia en esta carpeta los seis videos, en formato MP4, con estos nombres exactos
+(en minúsculas, sin espacios ni tildes):
+
+  leccion1.mp4    El velo de la ignorancia (Lección 1)
+  leccion3.mp4    ¿Mereces lo que tienes? (Lección 3)
+  leccion4.mp4    Los principios de la justicia (Lección 4)
+  leccion5.mp4    ¿Quién paga los impuestos en Colombia? (Lección 5)
+  leccion6.mp4    Tres críticas a Rawls (Lección 6)
+  caso.mp4        Caso: ¿quién paga la universidad? (Actividad 3)
+
+Si falta un video, el recurso muestra un aviso en su lugar y todo lo demás funciona.

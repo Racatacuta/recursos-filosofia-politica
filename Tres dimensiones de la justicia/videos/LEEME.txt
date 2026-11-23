@@ -1,0 +1,15 @@
+VIDEOS DEL RECURSO «LA FACTURA DEL CLIMA»
+
+Copia en esta carpeta los videos, en formato MP4, con estos nombres exactos
+(en minúsculas, sin espacios ni tildes):
+
+  leccion1.mp4   ¿Qué es el cambio climático?, unos 7 minutos (Lección 1, al inicio)
+  amazonia.mp4   La importancia de la Amazonia, 1 a 2 minutos (Lección 1, después del termómetro)
+  leccion2.mp4   Redistribución: ¿quién paga la factura? (Lección 2)
+  bonos.mp4      ¿Qué son los bonos de carbono y cómo funciona su mercado?, 1 a 2 minutos (Lección 3, al inicio)
+  leccion3.mp4   Reconocimiento: ¿quién cuenta? (Lección 3)
+  leccion4.mp4   Representación: ¿quién decide? (Lección 4)
+  atrato.mp4     Caso: el río Atrato (Actividad 3, al inicio)
+
+Si falta un video, el recurso muestra un aviso en su lugar y todo lo demás funciona.
+Después de copiar los videos, vuelve a comprimir la carpeta (el contenido, no la carpeta misma) en un .zip para subirlo a Moodle.

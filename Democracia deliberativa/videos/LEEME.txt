@@ -1,0 +1,14 @@
+Coloca aquí los videos en formato MP4 con estos nombres exactos:
+
+video1.mp4            El modelo liberal representativo, en síntesis
+video2.mp4            Los límites del modelo liberal, en síntesis
+video3.mp4            El modelo republicano, en síntesis
+video4.mp4            El modelo deliberativo, explicado
+video5.mp4            Los tres modelos, en síntesis
+caso_irlanda.mp4      Caso: Irlanda, la asamblea ciudadana
+caso_portoalegre.mp4  Caso: Porto Alegre, el presupuesto participativo
+caso_colombia.mp4     Caso: Colombia, los mecanismos de participación
+caso.mp4              Caso ficticio de Villa Aurora (Actividad 3), opcional
+
+Si un video de los casos no está, el recurso muestra ese caso por escrito.
+Si falta cualquier otro, aparece un aviso y el resto funciona con normalidad.

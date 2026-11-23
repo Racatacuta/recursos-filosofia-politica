@@ -1,0 +1,47 @@
+CÓMO AGREGAR LOS VIDEOS Y SUBIR EL RECURSO A MOODLE
+
+1. Descomprime este archivo .zip en una carpeta.
+
+2. Abre la carpeta «videos» y copia allí los seis videos con estos nombres exactos:
+
+     leccion1.mp4    El velo de la ignorancia (Lección 1)
+     leccion3.mp4    ¿Mereces lo que tienes? (Lección 3)
+     leccion4.mp4    Los principios de la justicia (Lección 4)
+     leccion5.mp4    ¿Quién paga los impuestos en Colombia? (Lección 5)
+     leccion6.mp4    Tres críticas a Rawls (Lección 6)
+     caso.mp4        Caso: ¿quién paga la universidad? (Actividad 3)
+
+   Los nombres van en minúsculas, sin espacios ni tildes. Si tu computador oculta
+   las extensiones, el nombre que ves debe ser «leccion1», no «leccion1.mp4.mp4».
+
+3. Vuelve a comprimir. Entra a la carpeta del recurso, selecciona TODO su contenido
+   (imsmanifest.xml, index.html y las carpetas fonts, lib y videos) y comprímelo:
+     - En Windows: clic derecho > Enviar a > Carpeta comprimida (en zip).
+     - En Mac: clic derecho > Comprimir.
+   El archivo imsmanifest.xml debe quedar en la raíz del .zip, no dentro de otra
+   carpeta. Si comprimes la carpeta completa en lugar de su contenido, Moodle no
+   reconocerá el paquete.
+
+4. En Moodle, agrega una actividad «Paquete SCORM» y sube el nuevo .zip.
+   Configuración sugerida:
+     - Calificación: «Puntuación más alta», calificación máxima 100.
+       El recurso envía la nota de 0 a 100 (5,0 = 100; la nota mínima, 3,0 = 60).
+     - Número de intentos: 1.
+     - Visualización: «Ventana actual» o «Nueva ventana», con un tamaño amplio.
+     - No configures fechas de cierre en Moodle («Disponible hasta»): bloquearían
+       también la consulta del contenido. El plazo de las actividades ya está dentro
+       del recurso.
+
+PLAZO DE LAS ACTIVIDADES
+Las actividades se pueden responder hasta el viernes 9 de octubre de 2026 a las
+11:59 p. m., hora de Colombia. Después de esa hora, las actividades no respondidas
+cuentan como 0,0 y la nota se envía a Moodle, pero el contenido sigue abierto para
+consulta. El recurso usa la hora del dispositivo del estudiante.
+
+Antes de subirlo, revisa el tamaño del .zip: con los videos puede superar el límite
+de subida de tu Moodle. Si es así, pide al administrador que lo amplíe o reduce el
+peso de los videos.
+
+Para probar el recurso en tu computador sin Moodle, abre index.html en el navegador.
+El avance se guarda solo en ese navegador; el botón «Borrar avance» de la página de
+inicio sirve para empezar de nuevo (en Moodle ese botón no aparece).

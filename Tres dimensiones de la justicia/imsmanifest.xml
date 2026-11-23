@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="FACTURA_DEL_CLIMA_2026" version="1.0"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2
+    imscp_rootv1p1p2.xsd
+    http://www.adlnet.org/xsd/adlcp_rootv1p2
+    adlcp_rootv1p2.xsd">
+
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+  </metadata>
+
+  <organizations default="ORG_FACTURA_DEL_CLIMA">
+    <organization identifier="ORG_FACTURA_DEL_CLIMA">
+      <title>La factura del clima: ¿quién la causa, quién la paga y quién decide?</title>
+      <item identifier="ITEM_01" identifierref="RES_01">
+        <title>La factura del clima · Recurso de estudio autónomo</title>
+      </item>
+    </organization>
+  </organizations>
+
+  <resources>
+    <resource identifier="RES_01"
+              type="webcontent"
+              adlcp:scormtype="sco"
+              href="index.html">
+      <file href="index.html"/>
+      <file href="lib/scorm.js"/>
+      <file href="fonts/LICENCIA.txt"/>
+      <file href="fonts/carlito-bold.woff"/>
+      <file href="fonts/carlito-bolditalic.woff"/>
+      <file href="fonts/carlito-italic.woff"/>
+      <file href="fonts/carlito-regular.woff"/>
+      <file href="fonts/lora-italic.woff"/>
+      <file href="fonts/lora.woff"/>
+      <file href="videos/LEEME.txt"/>
+      <file href="videos/leccion1.mp4"/>
+      <file href="videos/amazonia.mp4"/>
+      <file href="videos/leccion2.mp4"/>
+      <file href="videos/bonos.mp4"/>
+      <file href="videos/leccion3.mp4"/>
+      <file href="videos/leccion4.mp4"/>
+      <file href="videos/atrato.mp4"/>
+    </resource>
+  </resources>
+</manifest>

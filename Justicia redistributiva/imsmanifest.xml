@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="DETRAS_DEL_VELO_2026" version="1.0"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2
+    imscp_rootv1p1p2.xsd
+    http://www.adlnet.org/xsd/adlcp_rootv1p2
+    adlcp_rootv1p2.xsd">
+
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+  </metadata>
+
+  <organizations default="ORG_DETRAS_DEL_VELO">
+    <organization identifier="ORG_DETRAS_DEL_VELO">
+      <title>Detrás del velo: ¿qué reglas elegirías para Colombia si no supieras quién vas a ser?</title>
+      <item identifier="ITEM_01" identifierref="RES_01">
+        <title>Detrás del velo · Recurso de estudio autónomo</title>
+      </item>
+    </organization>
+  </organizations>
+
+  <resources>
+    <resource identifier="RES_01"
+              type="webcontent"
+              adlcp:scormtype="sco"
+              href="index.html">
+      <file href="index.html"/>
+      <file href="lib/scorm.js"/>
+      <file href="fonts/carlito-bold.woff"/>
+      <file href="fonts/carlito-bolditalic.woff"/>
+      <file href="fonts/carlito-italic.woff"/>
+      <file href="fonts/carlito-regular.woff"/>
+      <file href="fonts/lora-italic.woff"/>
+      <file href="fonts/lora.woff"/>
+      <file href="videos/leccion1.mp4"/>
+      <file href="videos/leccion3.mp4"/>
+      <file href="videos/leccion4.mp4"/>
+      <file href="videos/leccion5.mp4"/>
+      <file href="videos/leccion6.mp4"/>
+      <file href="videos/caso.mp4"/>
+    </resource>
+  </resources>
+</manifest>

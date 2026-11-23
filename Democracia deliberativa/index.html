@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Más allá de las urnas: de la democracia liberal a la democracia deliberativa</title>
+<style>
+/* Tipografías incluidas en el paquete (SIL Open Font License): Lora para títulos y Carlito para el texto */
+@font-face{font-family:"Lora";src:url("fonts/lora.woff") format("woff");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Lora";src:url("fonts/lora-italic.woff") format("woff");font-weight:400 700;font-style:italic;font-display:swap}
+@font-face{font-family:"Carlito";src:url("fonts/carlito-regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Carlito";src:url("fonts/carlito-bold.woff") format("woff");font-weight:600 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Carlito";src:url("fonts/carlito-italic.woff") format("woff");font-weight:400;font-style:italic;font-display:swap}
+
+:root{
+  --ink:#1d2733; --muted:#5a6776; --paper:#f4f0e7; --card:#fffdf8; --line:#e2d9c8; --soft:#ece5d6;
+  --navy:#15293d; --navy-2:#1f3b57; --navy-3:#2c5070;
+  --liberal:#2b5f91; --liberal-bg:#e7eef6;
+  --republicano:#8a3f78; --republicano-bg:#f4e9f1;
+  --deliberativo:#177a6d; --deliberativo-bg:#e1f1ed;
+  --gold:#c38b2c; --gold-2:#e0b25a; --gold-bg:#fbf1dc; --gold-ink:#6d4a10;
+  --ok:#237a50; --bad:#a63d2f;
+  --text:"Carlito","Lato","Calibri","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --display:"Lora",Georgia,"Times New Roman",serif;
+  --col:780px;
+  --shadow:0 1px 2px rgba(21,41,61,.06),0 6px 22px rgba(21,41,61,.07);
+  --r:16px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;font-size:calc(18px * var(--fs,1))}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:1.06rem;line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+#page-content .dd-wrap,#region-main .dd-wrap{margin-top:0}
+.dd-wrap{min-height:100vh}
+button,select,input{font-family:inherit;font-size:inherit}
+a{color:var(--navy-3);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus,h3[tabindex="-1"]:focus,p[tabindex="-1"]:focus,.back:focus{outline:none}
+[hidden]{display:none!important}
+h1,h2,h3,h4{font-family:var(--display);color:var(--navy);text-wrap:balance}
+
+/* ---------- Estructura ---------- */
+.layout{display:grid;grid-template-columns:318px minmax(0,1fr);align-items:start}
+.side{position:sticky;top:0;height:100vh;overflow-y:auto;color:#dfe8f0;padding:26px 20px 32px;
+  background:radial-gradient(120% 60% at 0% 0%,#24476a 0%,rgba(36,71,106,0) 60%),linear-gradient(180deg,#172d44 0%,#10202f 100%);
+  scrollbar-width:thin;scrollbar-color:#3a5875 transparent}
+.side-brand{display:flex;gap:12px;align-items:center;margin-bottom:20px}
+.brand{width:52px;height:46px;flex:0 0 auto}
+.brand circle{fill-opacity:.55;stroke:#fff;stroke-opacity:.35;stroke-width:1}
+.c-lib{fill:var(--liberal)} .c-rep{fill:var(--republicano)} .c-del{fill:var(--deliberativo)}
+.side-title{font-family:var(--display);font-size:1.25rem;line-height:1.15;margin:0;color:#fff;font-weight:700}
+.side .sub{font-size:.8rem;color:#9fb4c7;margin:3px 0 0}
+.prog{height:6px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden;margin:0 0 7px}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:99px;transition:width .4s ease}
+.progtxt{font-size:.8rem;color:#9fb4c7;margin:0 0 18px}
+.side-lock{background:rgba(224,178,90,.14);border:1px solid rgba(224,178,90,.45);color:#f4dca8;border-radius:10px;padding:10px 12px;font-size:.84rem;line-height:1.45;margin:0 0 16px}
+.nav{list-style:none;margin:0;padding:0}
+.nav .it{position:relative}
+.nav .it::before{content:"";position:absolute;left:21px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.12)}
+.nav .it:first-child::before{top:22px}
+.nav .it.k-final::before{bottom:calc(100% - 22px)}
+.nav .it.k-ref::before{display:none}
+.nav .it.done::before{background:rgba(224,178,90,.55)}
+.nav .grp{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#7f97ad;margin:22px 0 6px;padding:0 10px;font-weight:700}
+.nav button{all:unset;box-sizing:border-box;position:relative;display:flex;gap:12px;align-items:center;width:100%;padding:7px 10px;border-radius:10px;cursor:pointer;font-size:.9rem;line-height:1.25;color:#d5e0ea}
+.nav button:hover:not(:disabled){background:rgba(255,255,255,.07)}
+.nav button[aria-current="page"]{background:rgba(255,255,255,.13);color:#fff;font-weight:700}
+.nav button:focus-visible{outline:3px solid var(--gold)}
+.nav button:disabled{cursor:not-allowed}
+.nav .mark{flex:0 0 24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.76rem;font-weight:700;line-height:1;background:#1a3149;border:2px solid #56718b;color:#b8c8d6;z-index:1}
+.nav .k-pause .mark{border-radius:5px;transform:rotate(45deg) scale(.86);background:#2a2618;border-color:var(--gold);color:var(--gold-2);font-size:0}
+.nav .k-pause .lbl small{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);font-weight:700;margin-bottom:1px}
+.nav .it.k-pause button{background:rgba(224,178,90,.07);box-shadow:inset 0 0 0 1px rgba(224,178,90,.16);margin:3px 0}
+.nav .it.k-pause button[aria-current="page"]{background:rgba(224,178,90,.2);box-shadow:inset 0 0 0 1px rgba(224,178,90,.5)}
+.nav .k-final .mark{background:#2a2618;border-color:var(--gold);color:var(--gold-2)}
+.nav .k-final .mark::after{content:"★";font-size:.72rem}
+.nav .k-final.done .mark::after{content:""}
+.nav .k-ref .mark{border-style:dotted}
+.nav .done .mark{background:var(--gold);border-color:var(--gold);color:#1a2533}
+.nav .now .mark{box-shadow:0 0 0 4px rgba(224,178,90,.25);border-color:var(--gold-2);color:#fff}
+.nav .locked button{opacity:.42}
+.nav .locked .mark{color:transparent}
+.nav .frozen button{opacity:.55}
+.topbar,.scrim{display:none}
+
+/* Columna de lectura única: todo comparte el mismo ancho y el mismo borde izquierdo y derecho */
+.main{padding:40px 48px 90px;width:100%}
+.page{display:none;max-width:var(--col);margin:0 auto}
+.page.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- Encabezados de página ---------- */
+.phead{display:flex;align-items:center;justify-content:space-between;gap:24px;background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:26px 30px;margin:0 0 30px;box-shadow:var(--shadow);position:relative;overflow:hidden;--k:var(--navy-3);--kbg:#e8edf2}
+.phead::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--k)}
+.phead::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:var(--kbg);opacity:.7}
+.phead-txt{position:relative;z-index:1}
+.kicker{font-family:var(--text);font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--k,var(--navy-3));margin:0 0 6px}
+.phead h2{font-weight:700;font-size:clamp(1.45rem,2.8vw,1.95rem);line-height:1.15;letter-spacing:-.01em;margin:0}
+.emblem{position:relative;z-index:1;flex:0 0 82px;height:82px;border-radius:50%;background:var(--kbg);display:grid;place-items:center;color:var(--k)}
+.ico,.cico{fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.emblem .ico{width:48px;height:48px}
+.k-navy{--k:var(--navy-3);--kbg:#e6ecf2}
+.k-liberal{--k:var(--liberal);--kbg:var(--liberal-bg)}
+.k-republicano{--k:var(--republicano);--kbg:var(--republicano-bg)}
+.k-deliberativo{--k:var(--deliberativo);--kbg:var(--deliberativo-bg)}
+.k-amber{--k:#a8741f;--kbg:var(--gold-bg)}
+.phead.k-pause{--k:var(--gold);--kbg:rgba(224,178,90,.18);background:linear-gradient(135deg,#172d44,#1f3b57);border-color:#172d44}
+.phead.k-pause h2{color:#fff}
+.phead.k-pause .kicker{color:var(--gold-2)}
+.phead.k-pause .emblem{color:var(--gold-2)}
+
+/* ---------- Texto ---------- */
+.prose p,.prose li,.prose dd{text-align:left;text-wrap:pretty}
+.prose p{margin:0 0 1em}
+.prose ul,.prose ol{padding-left:1.3em;margin:0 0 1.1em}
+.prose li{margin:.4em 0}
+.prose ul li::marker{color:var(--gold)}
+.prose ol li::marker{color:var(--navy-3);font-weight:700}
+.prose strong,.prose b{color:var(--navy);font-weight:700}
+.prose h3,.page h3{font-weight:700;font-size:1.35rem;line-height:1.25;margin:40px 0 12px}
+.prose h3::before{content:"";display:inline-block;width:22px;height:3px;border-radius:2px;background:var(--gold);vertical-align:middle;margin-right:10px;transform:translateY(-3px)}
+.prose em{color:#3d4957}
+.howto{font-size:.92rem;color:var(--muted);background:#fff8e8;border:1px dashed #e3c98f;border-radius:10px;padding:8px 14px;text-align:left!important}
+.howto::before{content:"✓ ";color:var(--gold);font-weight:700}
+
+/* Aparición progresiva */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+.pop{animation:pop .45s ease}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.gated.opened{animation:pop .5s ease}
+
+/* ---------- Inicio ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:26px;align-items:center;border-radius:22px;padding:34px 36px;margin-bottom:26px;color:#fff;
+  background:radial-gradient(90% 120% at 100% 0%,#2c5a80 0%,rgba(44,90,128,0) 55%),linear-gradient(135deg,#172d44 0%,#1f3b57 100%);box-shadow:var(--shadow)}
+.hero .kicker{color:var(--gold-2)}
+.hero h1{font-weight:700;font-size:clamp(1.7rem,3.4vw,2.3rem);line-height:1.1;margin:0 0 14px;color:#fff;letter-spacing:-.015em}
+.hero p{margin:.5em 0;color:#dbe5ee;font-size:1.05rem}
+.venn{width:100%;height:auto}
+.venn circle{fill-opacity:.62;stroke:#fff;stroke-opacity:.5;stroke-width:1.2;mix-blend-mode:screen}
+.venn text{font-family:var(--text);font-size:14px;font-weight:700;fill:#fff}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:0;margin:14px 0 8px}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;box-shadow:var(--shadow)}
+.steps{counter-reset:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-size:.85rem;font-weight:700;margin-bottom:10px}
+.steps li.dia::before{background:var(--gold);color:#1b2530;border-radius:0;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);width:32px;height:32px}
+.steps b{display:block;font-size:1.02rem;color:var(--navy);margin-bottom:4px}
+.steps span{display:block;font-size:.9rem;line-height:1.4;color:var(--muted)}
+.rules{background:var(--gold-bg);border:1px solid #ecd6a4;border-radius:var(--r);padding:18px 22px;font-size:.96rem;line-height:1.5;margin:24px 0}
+.rules h3{margin:0 0 8px;font-size:1.1rem;color:var(--gold-ink)}
+.rules ul{margin:0;padding-left:1.2em}
+.rules li{margin:.35em 0}
+.cta{margin:22px 0 8px}
+
+/* ---------- Botones ---------- */
+.btn{font-weight:700;font-size:1rem;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:11px 20px;cursor:pointer;transition:background .15s,transform .1s,box-shadow .15s;line-height:1.2}
+.btn:hover:not(:disabled){background:var(--navy-3)}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn.big{font-size:1.06rem;padding:14px 26px;border-radius:12px;box-shadow:0 6px 18px rgba(21,41,61,.18)}
+.btn.sec{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.btn.sec:hover{background:var(--soft)}
+.btn.gold{background:var(--gold);color:#1b2530}
+.btn.gold:hover:not(:disabled){background:var(--gold-2)}
+.btn.ghost{background:transparent;color:var(--muted);font-size:.82rem;font-weight:400;padding:6px 10px;box-shadow:inset 0 0 0 1px var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.lk{all:unset;cursor:pointer;color:var(--navy-3);font-weight:700;text-decoration:underline;text-underline-offset:3px;font-size:.92rem}
+.lk:focus-visible{outline:3px solid var(--gold)}
+.pager{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.pager .hint{flex-basis:100%;text-align:right;margin:0;font-size:.86rem;color:var(--muted)}
+
+/* ---------- Tablas ---------- */
+.table-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:.93rem;line-height:1.45}
+th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{background:#f1ece0;font-weight:700;color:var(--navy)}
+td:first-child{font-weight:700;color:var(--navy)}
+th.m-liberal{background:var(--liberal);color:#fff}
+th.m-republicano{background:var(--republicano);color:#fff}
+th.m-deliberativo{background:var(--deliberativo);color:#fff}
+td.m-liberal{background:var(--liberal-bg)}
+td.m-republicano{background:var(--republicano-bg)}
+td.m-deliberativo{background:var(--deliberativo-bg)}
+
+/* ---------- Componentes de lectura ---------- */
+.qgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 24px}
+.qtile{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:14px;padding:14px 18px 16px;box-shadow:var(--shadow)}
+.qtile:nth-child(2){transition-delay:.08s}.qtile:nth-child(3){transition-delay:.16s}.qtile:nth-child(4){transition-delay:.24s}
+.qnum{display:block;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#a8741f;margin-bottom:4px}
+.qtile p{margin:0;font-family:var(--display);font-size:1.08rem;line-height:1.35;color:var(--navy);text-align:left!important}
+.bigbut{font-family:var(--display);font-size:1.5rem;font-style:italic;color:var(--gold-ink);margin:18px 0 4px!important;text-align:left!important}
+.icards{display:grid;gap:12px;margin:14px 0 22px}
+.icards.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.icards.n4,.icards.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.icard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.icard:nth-child(2){transition-delay:.08s}.icard:nth-child(3){transition-delay:.16s}.icard:nth-child(4){transition-delay:.24s}
+.icard .ico{width:36px;height:36px;color:var(--k,var(--navy-3));margin-bottom:6px}
+#p-liberal{--k:var(--liberal)} #p-republicano{--k:var(--republicano)} #p-deliberativo,#p-practica{--k:var(--deliberativo)} #p-balance{--k:#a8741f}
+.icard h4{font-size:1.06rem;line-height:1.25;margin:0 0 6px}
+.icard p{margin:0;font-size:.95rem;line-height:1.5;text-align:left!important;hyphens:manual}
+.callout{display:flex;gap:16px;align-items:flex-start;border-radius:var(--r);padding:18px 22px;margin:22px 0;background:#eef2f6;border-left:5px solid var(--navy-3)}
+.callout .cico{flex:0 0 38px;width:38px;height:38px;color:var(--navy-3);margin-top:2px}
+.callout p{margin:.2em 0}
+.callout .clabel{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-3);margin:0 0 4px;text-align:left!important}
+.c-del{background:var(--deliberativo-bg);border-left-color:var(--deliberativo)} .c-del .cico,.c-del .clabel{color:var(--deliberativo)}
+.c-rep{background:var(--republicano-bg);border-left-color:var(--republicano)} .c-rep .cico,.c-rep .clabel{color:var(--republicano)}
+.c-amber{background:var(--gold-bg);border-left-color:var(--gold)} .c-amber .cico,.c-amber .clabel{color:#a8741f}
+blockquote.pull{margin:14px 0 20px;padding:18px 24px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);font-family:var(--display);font-size:1.2rem;line-height:1.5;color:var(--navy);position:relative}
+blockquote.pull::before{content:"“";position:absolute;left:12px;top:-10px;font-size:4rem;color:var(--gold);font-family:var(--display);line-height:1}
+blockquote.pull strong{color:var(--deliberativo)}
+
+/* Casillas que se voltean */
+.flipset{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:12px 0 16px;perspective:1200px}
+.flip{display:grid;position:relative;min-height:210px}
+.flip>.front,.flip>.back{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;transition:transform .6s cubic-bezier(.2,.7,.2,1);box-shadow:var(--shadow)}
+.flip>.front{all:unset;grid-area:1/1;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;gap:10px;padding:18px;border-radius:14px;
+  background:linear-gradient(160deg,#24507a,#173552);color:#fff;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .6s cubic-bezier(.2,.7,.2,1);box-shadow:var(--shadow)}
+.flip>.front:hover{filter:brightness(1.08)}
+.flip>.front:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.flip>.back{transform:rotateY(180deg);background:var(--card);border:1px solid var(--line);border-top:4px solid var(--liberal);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.flip.flipped>.front{transform:rotateY(-180deg)}
+.flip.flipped>.back{transform:rotateY(0)}
+.flip.sel>.back{box-shadow:0 0 0 3px rgba(43,95,145,.35),var(--shadow)}
+.fnum{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2)}
+.back .fnum{color:var(--liberal)}
+.ftitle{font-family:var(--display);font-size:1.22rem;line-height:1.25;font-weight:700}
+.fhint{font-size:.85rem;display:inline-flex;align-items:center;gap:8px;color:#cfe0ee}
+.fhint::before{content:"↻";display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.15);font-size:1rem}
+.back p{margin:0;font-size:.98rem;line-height:1.5;text-align:left!important;hyphens:manual}
+.back .lk{margin-top:auto;font-size:.88rem}
+.fpanel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px 8px;box-shadow:var(--shadow);margin:0 0 10px}
+.fpanel h4{font-size:1.12rem;margin:0 0 12px}
+.casecard{border-left:4px solid var(--liberal);padding:2px 0 2px 16px;margin:0 0 16px}
+.casecard .clabel{font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--liberal);margin:0 0 4px;text-align:left!important}
+.casecard p{margin:0}
+
+/* Pasos (cuatro momentos) */
+.stepper{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow);margin:12px 0 18px}
+.track{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0;margin:0 0 18px;position:relative}
+.track li{position:relative;text-align:center;font-size:.84rem;line-height:1.25;color:var(--muted);padding:0 4px;text-align:center!important;hyphens:manual}
+.track li::before{content:"";position:absolute;top:15px;left:-50%;right:50%;height:3px;background:var(--soft)}
+.track li:first-child::before{display:none}
+.track li span{position:relative;z-index:1;display:grid;place-items:center;width:32px;height:32px;margin:0 auto 6px;border-radius:50%;background:var(--soft);color:var(--muted);font-weight:700;transition:background .3s,color .3s}
+.track li.on{color:var(--deliberativo);font-weight:700}
+.track li.on span{background:var(--deliberativo);color:#fff}
+.track li.on::before{background:var(--deliberativo)}
+.scard{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.scard:first-child{border-top:0}
+.snum{flex:0 0 36px;height:36px;border-radius:10px;background:var(--deliberativo-bg);color:var(--deliberativo);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.1rem}
+.scard h4{margin:4px 0 2px;font-size:1.08rem}
+.scard p{margin:0;text-align:left!important}
+.scta{margin:12px 0 0;text-align:right!important}
+
+/* Dos vías */
+.vias{display:grid;grid-template-columns:minmax(0,1fr) 110px minmax(0,1fr);gap:10px;align-items:center;margin:14px 0 20px}
+.via{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);height:100%}
+.via .ico{width:34px;height:34px;color:var(--deliberativo)}
+.via.v2 .ico{color:var(--navy-3)}
+.via.v1{border-top:4px solid var(--deliberativo)} .via.v2{border-top:4px solid var(--navy-3)}
+.via h4{font-size:1.02rem;margin:6px 0 6px;line-height:1.25}
+.via p{margin:0;font-size:.94rem;line-height:1.5;text-align:left!important;hyphens:manual}
+.vflow{text-align:center;color:var(--gold);font-size:.8rem;font-weight:700;line-height:1.2}
+.vflow span{display:block;margin-bottom:4px;color:var(--gold-ink)}
+.vflow svg{width:80px;height:24px;fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;animation:flow 1.8s ease-in-out infinite}
+@keyframes flow{0%,100%{transform:translateX(-4px)}50%{transform:translateX(4px)}}
+
+/* Pestañas de casos */
+.casetabs{margin:12px 0 20px}
+.ctabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.ctab{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--card);border:1.5px solid var(--line);box-shadow:var(--shadow);position:relative}
+.ctab .ico{flex:0 0 30px;width:30px;height:30px;color:var(--deliberativo)}
+.ctab b{display:block;font-family:var(--display);font-size:1.02rem;color:var(--navy)}
+.ctab small{display:block;font-size:.8rem;color:var(--muted);line-height:1.25}
+.ctab[aria-selected="true"]{border-color:var(--deliberativo);background:var(--deliberativo-bg);box-shadow:0 0 0 3px rgba(23,122,109,.15)}
+.ctab.seen::after{content:"✓";position:absolute;top:6px;right:8px;font-size:.8rem;font-weight:700;color:var(--deliberativo)}
+.ctab:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* Balanza */
+.balance{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px 20px;box-shadow:var(--shadow);margin:12px 0 18px}
+.scale{display:block;width:min(100%,380px);height:auto;margin:0 auto 10px;overflow:visible}
+.scale path{fill:none;stroke:var(--navy-3);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.scale .post{stroke-width:5}
+.scale .bar{stroke-width:6}
+.scale .hub{fill:var(--gold);stroke:none}
+.scale .dish{fill:#f1ece0;stroke:var(--navy-3)}
+.scale .pl .dish{fill:var(--deliberativo-bg)} .scale .pr .dish{fill:var(--gold-bg)}
+.scale .w{font-family:var(--display);font-weight:700;font-size:20px;fill:var(--navy)}
+.beam{transform-origin:180px 40px;transform-box:view-box;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.pl{transform-origin:50px 40px;transform-box:view-box;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.pr{transform-origin:310px 40px;transform-box:view-box;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.bcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bcol h4{font-size:1.05rem;margin:0 0 8px;padding-bottom:6px;border-bottom:3px solid var(--deliberativo)}
+.bcol.con h4{border-bottom-color:var(--gold)}
+.wcard{border:1px solid var(--line);border-radius:12px;margin:0 0 10px;background:#fff;overflow:hidden;transition:box-shadow .2s}
+.wt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:10px;align-items:center;width:100%;padding:12px 14px;font-weight:700;color:var(--navy);line-height:1.3}
+.wt:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.wt::after{content:"+";margin-left:auto;display:grid;place-items:center;flex:0 0 24px;height:24px;border-radius:50%;background:var(--soft);color:var(--navy);font-weight:700}
+.wcard.open .wt::after{content:"✓";background:var(--deliberativo);color:#fff}
+.wcard.con.open .wt::after{background:var(--gold);color:#1b2530}
+.wdot{flex:0 0 10px;height:10px;border-radius:50%;background:var(--deliberativo)}
+.wcard.con .wdot{background:var(--gold)}
+.wb{padding:0 14px 12px}
+.wb p{margin:0;font-size:.95rem;line-height:1.5;text-align:left!important;hyphens:manual}
+.wcard.open{box-shadow:var(--shadow)}
+.wcard.open .wb{animation:pop .4s ease}
+
+/* Cierre */
+.checkq{display:grid;gap:10px;margin:10px 0 20px}
+.cq{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow)}
+.cq>span{flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700}
+.cq div{padding-top:3px}
+.progs{margin:6px 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:99px;background:var(--card);border:1.5px solid var(--line);font-weight:700;font-size:.95rem;color:var(--navy);box-shadow:var(--shadow)}
+.chip .ico{width:22px;height:22px;color:var(--navy-3)}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chip[aria-pressed="true"] .ico{color:var(--gold-2)}
+.chip:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.progp{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--navy-3);border-radius:12px;padding:14px 18px;box-shadow:var(--shadow)}
+.progp p{margin:0}
+.closing{font-family:var(--display);font-size:1.18rem;line-height:1.5;color:var(--navy);text-align:center!important;margin:28px auto 0!important;max-width:620px;padding:18px 0;border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
+
+/* Glosario */
+.gloss{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0 24px}
+.gterm{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow)}
+.gterm dt{font-family:var(--display);font-weight:700;color:var(--navy);margin-bottom:4px}
+.gterm dd{margin:0;font-size:.94rem;line-height:1.45;text-align:left!important;hyphens:manual}
+ul.links li{margin:.3em 0}
+
+/* ---------- Video ---------- */
+figure.video{margin:22px 0 26px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
+figure.video figcaption{font-weight:700;font-size:1rem;margin-bottom:12px;color:var(--navy);display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--display)}
+.vtag{font-family:var(--text);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:var(--navy);color:#fff;padding:3px 9px 3px 22px;border-radius:99px;font-weight:700;position:relative}
+.vtag::before{content:"";position:absolute;left:9px;top:50%;margin-top:-4px;border-left:7px solid var(--gold-2);border-top:4px solid transparent;border-bottom:4px solid transparent}
+.vdur{font-family:var(--text);font-size:.85rem;font-weight:400;color:var(--muted)}
+figure.video video{width:100%;max-height:440px;background:#0f1a24;border-radius:10px;display:block}
+.vnote{font-size:.84rem;color:var(--muted);margin:8px 0 0}
+.vmissing{display:none;font-size:.94rem;background:repeating-linear-gradient(135deg,#f3eee3 0 12px,#efe9dc 12px 24px);border-radius:10px;padding:24px 20px;color:var(--muted);text-align:center}
+figure.video.nofile video{display:none}
+figure.video.nofile .vmissing{display:block}
+.vfallback{display:none}
+figure.vt.nofile .vfallback{display:block}
+figure.vt.nofile .vdetails{display:none}
+.vflag{font-size:.86rem;color:var(--muted);background:var(--soft);border-radius:8px;padding:6px 12px;margin:0 0 12px!important;text-align:left!important}
+.vdetails{margin-top:12px}
+.vdetails summary{cursor:pointer;font-weight:700;color:var(--navy-3);font-size:.95rem}
+.page.pause figure.video{background:#fffaf0}
+
+/* ---------- Actividades ---------- */
+.pz-start{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 28px;box-shadow:var(--shadow)}
+.pz-start .lead{font-size:1.1rem;margin-top:0}
+.qtypes{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.qtype{display:inline-flex;align-items:center;gap:6px;font-size:.84rem;font-weight:700;padding:4px 12px 4px 4px;border-radius:99px;background:var(--soft);color:var(--navy)}
+.qtype b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:.75rem}
+.qtop .qtype{padding:3px 10px}
+.pz-rules{list-style:none;padding:0;margin:0 0 22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;font-size:.92rem;line-height:1.4}
+.pz-rules li{background:var(--gold-bg);border:1px solid #ecd6a4;border-radius:12px;padding:10px 12px 10px 36px;position:relative;color:#5b4213}
+.pz-rules li::before{content:"";position:absolute;left:13px;top:15px;width:9px;height:9px;background:var(--gold);transform:rotate(45deg);border-radius:2px}
+.casebox{background:#fffaf0;border:1px solid #ecd6a4;border-radius:14px;margin:0 0 22px;overflow:hidden}
+.casebox summary{cursor:pointer;font-weight:700;font-size:.98rem;color:var(--gold-ink);padding:13px 18px;list-style:none;display:flex;align-items:center;gap:10px}
+.casebox summary::-webkit-details-marker{display:none}
+.casebox summary::before{content:"+";display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#1b2530;font-weight:700}
+.casebox[open] summary::before{content:"−"}
+.casebody{padding:0 22px 8px;font-size:1rem}
+.casebody p{text-wrap:pretty}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 28px 22px;box-shadow:var(--shadow);border-top:5px solid var(--gold)}
+.qtop{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.qn{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#a8741f}
+.dots{display:flex;gap:7px;margin-left:auto}
+.dots i{width:10px;height:10px;border-radius:3px;transform:rotate(45deg);background:var(--soft);border:1px solid #d6ccb6}
+.dots i.past{background:var(--navy-3);border-color:var(--navy-3)}
+.dots i.cur{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 3px rgba(195,139,44,.22)}
+.qt{font-family:var(--display);font-size:1.15rem;line-height:1.5;color:var(--ink);margin:0 0 16px}
+.opt{display:flex;gap:14px;align-items:flex-start;padding:12px 16px;margin:9px 0;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;font-size:1rem;line-height:1.45;background:#fff;transition:border-color .15s,background .15s,box-shadow .15s}
+.opt:hover{border-color:#c9bb9c;background:#fffcf4}
+.opt input,.segb input{position:absolute;opacity:0;pointer-events:none}
+.opt .let{flex:0 0 28px;height:28px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:.86rem;background:var(--soft);color:var(--navy)}
+.opt .otxt{padding-top:2px}
+.opt.sel{border-color:var(--navy-3);background:#eef3f8;box-shadow:0 0 0 3px rgba(44,80,112,.12)}
+.opt.sel .let{background:var(--navy);color:#fff}
+.opt:focus-within,.segb:focus-within{outline:3px solid var(--gold);outline-offset:2px}
+.vfrow{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;margin:9px 0;background:#fff}
+.vfrow.answered{border-color:#c7d3de}
+.vfs{margin:0;line-height:1.45}
+.seg{display:flex;flex:0 0 auto;border-radius:10px;background:var(--soft);padding:3px;gap:3px}
+.segb{position:relative;cursor:pointer;padding:7px 14px;border-radius:8px;font-weight:700;font-size:.92rem;color:var(--navy)}
+.segb.sel{background:var(--navy);color:#fff}
+.mopts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px}
+.mlab{font-size:.84rem;color:var(--muted);font-weight:700;margin-right:2px}
+.mchip{font-size:.84rem;padding:3px 10px;border-radius:99px;background:var(--gold-bg);color:var(--gold-ink);border:1px solid #ecd6a4}
+.mrow{padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;margin:9px 0;background:#fff}
+.mrow.answered{border-color:#c7d3de}
+.mtx{margin:0 0 10px;line-height:1.45;display:flex;gap:10px}
+.mnum{flex:0 0 24px;height:24px;border-radius:6px;background:var(--soft);display:grid;place-items:center;font-weight:700;font-size:.8rem;color:var(--navy);margin-top:1px}
+.msel{width:100%;padding:10px 38px 10px 12px;border-radius:10px;border:1.5px solid #cfc5b0;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%231f3b57' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 12px center;-webkit-appearance:none;appearance:none;color:var(--ink);font-size:.98rem;cursor:pointer}
+.msel:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.mrow.answered .msel{border-color:var(--navy-3);background-color:#eef3f8;font-weight:700}
+.ohint{font-size:.88rem;color:var(--muted);margin:0 0 8px}
+.olist{list-style:none;margin:0;padding:0}
+.oitem{display:flex;gap:12px;align-items:center;padding:10px 12px;margin:8px 0;border:1.5px solid var(--line);border-radius:12px;background:#fff;transition:transform .25s ease}
+.opos{flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700}
+.otx{flex:1;line-height:1.4}
+.octr{display:flex;flex-direction:column;gap:4px}
+.obtn{width:34px;height:26px;border-radius:7px;border:1px solid #cfc5b0;background:var(--soft);color:var(--navy);cursor:pointer;font-size:.72rem;line-height:1}
+.obtn:hover:not(:disabled){background:var(--gold-bg);border-color:var(--gold)}
+.obtn:disabled{opacity:.3;cursor:default}
+.qfoot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.note{font-size:.86rem;color:var(--muted);margin:0}
+.donecard{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 28px;box-shadow:var(--shadow)}
+.donecard svg{width:64px;height:64px;fill:none;stroke:var(--ok);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.donecard circle{fill:#e3f1e9;stroke:var(--ok)}
+.donecard h3{margin:10px 0 6px}
+.donecard p{max-width:52ch;margin:0 auto 20px;color:var(--muted)}
+
+/* ---------- Nota final ---------- */
+.final{display:flex;gap:28px;align-items:center;border-radius:18px;padding:26px 30px;margin:0 0 24px;box-shadow:var(--shadow);background:var(--card);border:1px solid var(--line)}
+.final.pass{border-left:6px solid var(--ok)} .final.fail{border-left:6px solid var(--bad)}
+.ring{--c:var(--ok);flex:0 0 132px;height:132px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(closest-side,var(--card) 78%,transparent 79% 100%),conic-gradient(var(--c) calc(var(--pct)*1%),var(--soft) 0)}
+.final.fail .ring{--c:var(--bad)}
+.ring b{font-family:var(--display);font-size:2.2rem;line-height:1;color:var(--navy)}
+.ring small{font-size:.82rem;color:var(--muted);margin-top:4px}
+.final-txt h3{margin:0 0 6px;font-size:1.5rem}
+.final-txt p{margin:0;color:var(--muted)}
+.final-txt .kicker{color:var(--muted);margin-bottom:6px}
+
+/* ---------- Pantallas medianas y móviles ---------- */
+@media (max-width:1180px){ .main{padding:32px 28px 80px} }
+@media (max-width:1060px){
+  .flipset.n3,.icards.n3{grid-template-columns:1fr}
+  .flip{min-height:0}
+  .hero{grid-template-columns:1fr}
+  .venn{max-width:200px;justify-self:center}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  html{font-size:calc(17px * var(--fs,1))}
+  .layout{grid-template-columns:1fr}
+  .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;padding:10px 14px;font-family:var(--display);font-weight:700}
+  .menu-btn{display:inline-grid;place-items:center;width:40px;height:40px;border:0;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;font-size:1.2rem;cursor:pointer}
+  .side{position:fixed;left:0;top:0;bottom:0;width:min(86vw,330px);z-index:40;transform:translateX(-102%);transition:transform .25s ease;box-shadow:8px 0 30px rgba(0,0,0,.25)}
+  body.menu-open .side{transform:none}
+  body.menu-open .scrim{display:block;position:fixed;inset:0;background:rgba(10,20,30,.45);z-index:35}
+  .main{padding:20px 16px 60px}
+  .phead{padding:18px 18px;border-radius:16px;gap:14px}
+  .emblem{flex-basis:54px;height:54px}
+  .emblem .ico{width:32px;height:32px}
+  .hero{padding:24px 20px}
+  .prose p,.prose li,.prose dd{text-align:left}
+  .qgrid,.icards.n4,.icards.two,.gloss,.bcols,.pz-rules{grid-template-columns:1fr}
+  .vias{grid-template-columns:1fr}
+  .vflow{transform:rotate(90deg);margin:6px 0}
+  .ctabs{grid-template-columns:1fr}
+  .track li{font-size:.72rem}
+  .qcard,.pz-start{padding:20px 18px}
+  .vfrow{flex-direction:column;align-items:stretch}
+  .seg{align-self:flex-start}
+  .final{flex-direction:column;text-align:center}
+}
+@media (max-width:520px){ .steps{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} .reveal{opacity:1;transform:none} }
+.flip>.back{visibility:hidden;transition:transform .6s cubic-bezier(.2,.7,.2,1),visibility 0s .3s}
+.flip.flipped>.back{visibility:visible;transition:transform .6s cubic-bezier(.2,.7,.2,1),visibility 0s 0s}
+.flip.flipped>.front{visibility:hidden;transition:transform .6s cubic-bezier(.2,.7,.2,1),visibility 0s .3s}
+
+.back h4{font-size:1.05rem;line-height:1.25;margin:0 0 4px}
+.casecard.idea{border-left-color:var(--gold)} .casecard.idea .clabel{color:#a8741f}
+.back p{font-family:var(--display);font-size:1.05rem;line-height:1.45;color:var(--navy)}
+@media (max-width:900px){.scale{position:sticky;top:60px;z-index:2;background:var(--card);padding:6px 0;width:100%;max-width:none}}
+.flipset .fpanel{grid-column:1/-1;margin:0}
+
+/* ---------- Inicio simplificado ---------- */
+.hero .hero-sub{font-family:var(--display);font-size:1.15rem;color:var(--gold-2);margin:-4px 0 12px;font-style:italic}
+.hero .cta{margin:18px 0 0}
+.hero h1{font-size:clamp(2rem,4.6vw,2.9rem)}
+.ih{font-size:1.2rem;margin:30px 0 12px}
+.objs,.facts{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.objs li{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;box-shadow:var(--shadow);font-size:.96rem;line-height:1.45}
+.objs .ico{flex:0 0 30px;width:30px;height:30px;color:var(--deliberativo);margin-top:1px}
+.facts{grid-template-columns:repeat(4,minmax(0,1fr))}
+.facts li{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:14px;padding:14px 14px 12px;box-shadow:var(--shadow)}
+.facts .ico{width:30px;height:30px;color:#a8741f;display:block;margin-bottom:6px}
+.facts b{display:block;font-family:var(--display);color:var(--navy);font-size:1.05rem;line-height:1.2;margin-bottom:3px}
+.facts span{display:block;font-size:.86rem;color:var(--muted);line-height:1.35}
+.fine{font-size:.88rem;color:var(--muted);margin:12px 0 0}
+@media (max-width:1060px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.objs{grid-template-columns:1fr}.venn{max-width:150px}}
+
+/* ---------- Banner de autoría: franja delgada fija al pie de la pantalla ---------- */
+.credit{position:fixed;left:318px;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:center;gap:8px;padding:5px 14px;
+  background:rgba(21,41,61,.94);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);color:#b9c8d6;font-size:.72rem;line-height:1.2;border-top:2px solid var(--gold)}
+.credit p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.credit b{color:#fff;font-weight:700}
+.cr-mark{flex:0 0 12px;height:12px;border-radius:50%;background:conic-gradient(var(--liberal) 0 33%,var(--republicano) 0 66%,var(--deliberativo) 0)}
+.main{padding-bottom:110px}
+.side-close{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:#dbe6ee;border-radius:10px;padding:9px 12px;font-size:.8rem;line-height:1.4;margin:0 0 14px}
+.side-close.is-closed{background:rgba(166,61,47,.25);border-color:rgba(230,140,120,.5);color:#fbe3dc}
+@media (max-width:900px){.credit{left:0}.cr-sub{display:none}}
+/* ---------- Modo lectura ---------- */
+.rd-side{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;width:100%;padding:8px 12px;margin:0 0 16px;border-radius:10px;background:rgba(255,255,255,.07);color:#dbe6ee;font-size:.86rem;font-weight:700}
+.rd-side:hover{background:rgba(255,255,255,.12)}
+.rd-side:focus-visible,.rd-btn:focus-visible{outline:3px solid var(--gold)}
+.rd-side .aa,.rd-btn{font-family:var(--display);font-weight:700}
+.rd-side .aa{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--gold);color:#1b2530;font-size:.9rem}
+.rd-btn{display:none}
+.rd-pop{position:fixed;z-index:60;width:240px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(15,26,36,.25);padding:14px 16px 12px;color:var(--ink)}
+.rd-t{font-family:var(--display);font-weight:700;color:var(--navy);margin:0 0 2px}
+.rd-s{font-size:.82rem;color:var(--muted);margin:0 0 10px}
+.rd-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rd-b{width:56px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--navy);font-family:var(--display);font-weight:700;font-size:1.1rem;cursor:pointer}
+.rd-b:hover:not(:disabled){border-color:var(--gold);background:var(--gold-bg)}
+.rd-b:disabled{opacity:.35;cursor:default}
+.rd-v{font-weight:700;color:var(--navy)}
+.rd-reset{all:unset;cursor:pointer;display:block;margin:10px auto 0;font-size:.82rem;color:var(--navy-3);text-decoration:underline}
+.rd-b:focus-visible,.rd-reset:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media (max-width:900px){
+  .tb-title{flex:1}
+  .rd-btn{display:inline-grid;place-items:center;width:40px;height:40px;border:0;border-radius:10px;background:var(--gold);color:#1b2530;font-size:1rem;cursor:pointer}
+}
+
+/* ---------- Temporizador ---------- */
+.timer{font-weight:700;font-size:.9rem;padding:4px 10px;border-radius:99px;background:var(--navy);color:#fff;font-variant-numeric:tabular-nums;margin-left:8px}
+.timer.warn{background:var(--bad);animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.7}}
+
+/* ---------- Ajustes de la revisión en dispositivos ---------- */
+.main,.page,.prose{min-width:0}
+.facts b,.objs span,.qtile p,.ftitle,.phead h2{overflow-wrap:break-word;hyphens:manual}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .vtag{font-size:.78rem}
+  .track li{font-size:.78rem}
+  .obtn{width:42px;height:34px;font-size:.9rem}
+  .octr{gap:6px}
+}
+@media (max-width:520px){ .facts{grid-template-columns:1fr} .track li{font-size:.74rem;padding:0 1px} }
+.credit p{white-space:normal;text-align:center}
+@media (max-width:520px){.cr-lab{display:none}}
+
+</style>
+</head>
+<body>
+<div class="dd-wrap">
+<div class="topbar"><button class="menu-btn" id="menubtn" type="button" aria-label="Abrir o cerrar el menú">&#9776;</button><span class="tb-title">Más allá de las urnas</span><button class="rd-btn" type="button" data-rd aria-haspopup="true" aria-expanded="false" title="Modo lectura: tamaño de letra">Aa</button></div><div class="scrim" id="scrim"></div>
+<div class="layout">
+<aside class="side" aria-label="Navegación del recurso">
+<div class="side-brand"><svg class="brand" viewBox="0 0 64 56" aria-hidden="true"><circle cx="23" cy="21" r="15" class="c-lib"/><circle cx="41" cy="21" r="15" class="c-rep"/><circle cx="32" cy="35" r="15" class="c-del"/></svg><div><p class="side-title">Más allá de las urnas</p><p class="sub">Filosofía Política · Estudio autónomo</p></div></div>
+<div class="prog" aria-hidden="true"><i id="progbar"></i></div>
+<p class="progtxt" id="progtxt" aria-live="polite"></p>
+<div class="side-lock" id="sidelock" hidden></div>
+<div class="side-close" id="sideclose" hidden></div>
+<button class="rd-side" type="button" data-rd aria-haspopup="true" aria-expanded="false"><span class="aa">Aa</span> Modo lectura</button>
+<nav><ol class="nav" id="nav"></ol></nav>
+</aside>
+<main class="main" id="main">
+<section class="page" id="p-inicio" data-kind="lesson" aria-labelledby="h-inicio">
+<div class="hero"><div class="hero-txt"><p class="kicker">Filosofía Política · Estudio autónomo</p><h1 id="h-inicio">Más allá de las urnas</h1><p class="hero-sub">De la democracia liberal a la democracia deliberativa</p><p>Este recurso te permite estudiar por tu cuenta cómo ha cambiado la manera de entender la democracia y por qué esa discusión te afecta como ciudadano y como futuro profesional.</p>
+<p class="cta"><button class="btn big gold" type="button" data-go="partida">Empezar el recorrido →</button></p></div><svg class="venn" viewBox="0 0 250 220" role="img" aria-label="Tres modelos de democracia: liberal, republicano y deliberativo"><circle cx="82" cy="80" r="60" class="c-lib"/><circle cx="168" cy="80" r="60" class="c-rep"/><circle cx="125" cy="150" r="60" class="c-del"/><text x="58" y="66" text-anchor="middle">Liberal</text><text x="194" y="66" text-anchor="middle">Republicano</text><text x="125" y="186" text-anchor="middle">Deliberativo</text></svg></div>
+<h3 class="ih">Al terminar, podrás</h3><ul class="objs"><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="26" width="40" height="28" rx="3"/><path d="M22 26h20"/><rect x="24" y="8" width="16" height="22" rx="2" transform="rotate(8 32 19)"/><path d="M28 16l3 3 6-7" transform="rotate(8 32 19)"/></svg><span>Entender algunas limitaciones de la democracia liberal representativa y reconocerlas en casos reales.</span></li><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="8"/><circle cx="32" cy="10" r="4"/><circle cx="51" cy="21" r="4"/><circle cx="51" cy="43" r="4"/><circle cx="32" cy="54" r="4"/><circle cx="13" cy="43" r="4"/><circle cx="13" cy="21" r="4"/></svg><span>Distinguir los modelos liberal, republicano y deliberativo según lo que cada uno entiende por ciudadano, política y decisión legítima.</span></li><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 12h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H20l-8 7v-7H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/><path d="M46 24h10a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4h-2v7l-8-7H30a4 4 0 0 1-4-4v-4"/></svg><span>Analizar una decisión política usando el criterio de la democracia deliberativa: ¿fue justificada con razones que los afectados pudieran aceptar?</span></li><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8v48M20 56h24M12 18h40"/><path d="M12 18L4 36h16L12 18zM52 18l-8 18h16l-8-18z"/></svg><span>Reconocer, de manera general, los límites de la democracia deliberativa.</span></li></ul>
+<h3 class="ih">Así funciona</h3><ul class="facts"><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l26 26-26 26L6 32z"/><path d="M22 32l7 7 13-14"/></svg><b>4 actividades</b><span>de 3 preguntas, dentro del recorrido</span></li><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="22"/><path d="M32 22v12l8 6M26 6h12"/></svg><b>5 minutos</b><span>por actividad y un solo intento</span></li><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="28" width="36" height="26" rx="4"/><path d="M22 28v-8a10 10 0 0 1 20 0v8"/></svg><b>Sin volver atrás</b><span>mientras respondes, el contenido se bloquea</span></li><li><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8l7 15 16 2-12 11 3 16-14-8-14 8 3-16L9 25l16-2z"/></svg><b>Nota de 0 a 5</b><span>promedio de las cuatro; apruebas con 3,0</span></li></ul>
+<p class="fine">Las preguntas con varias partes dan puntaje parcial. Tu nota aparece al final del recurso.</p>
+<p class="cta"><button class="btn ghost" type="button" id="resetLocal">Borrar avance (solo modo de prueba)</button></p>
+<div class="sentinel"></div></section>
+<section class="page" id="p-partida" data-kind="lesson" aria-labelledby="h-partida"><header class="phead k-navy"><div class="phead-txt"><p class="kicker">Lección 1 · Para empezar</p><h2 id="h-partida">Punto de partida: dos modelos y cuatro preguntas</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24"/><path d="M25 25a7 7 0 1 1 10 6c-2 1-3 3-3 5v2"/><circle cx="32" cy="45" r="1.5"/></svg></div></header>
+<div class="prose"><p class="reveal">En clase ya viste dos respuestas a la pregunta de quién debe gobernar. En la <strong>democracia directa ateniense</strong>, los ciudadanos decidían personalmente en la asamblea. Era una participación intensa, pero excluía a mujeres, esclavos y extranjeros, y solo funcionaba en una ciudad pequeña.</p><p class="reveal">La <strong>democracia liberal representativa</strong> unió dos principios del siglo XVIII: la <strong>representación</strong> (de la Revolución Americana: en un Estado grande, los ciudadanos eligen a quienes deciden por ellos) y la <strong>soberanía popular</strong> (de la Revolución Francesa: el poder pertenece al pueblo y no al monarca). En el siglo XIX se volvió la respuesta dominante: <strong>la gente elige a sus representantes y ellos deciden por todos</strong>. Puso fin a la monarquía absoluta, estableció derechos que el poder no puede violar y creó las elecciones como forma de cambiar a los gobernantes sin violencia. Su historia ha sido también la lucha por ampliar el voto, desde el sufragio para algunos hombres al sufragio universal.</p><p class="bigbut reveal">Pero...</p><div class="qgrid"><div class="qtile reveal"><span class="qnum">Pregunta 1</span><p>¿Es suficiente votar cada cuatro años?</p></div><div class="qtile reveal"><span class="qnum">Pregunta 2</span><p>¿Qué pasa cuando las leyes son legales pero injustas?</p></div><div class="qtile reveal"><span class="qnum">Pregunta 3</span><p>¿Cómo sabemos que una decisión política es válida si no participamos en ella?</p></div><div class="qtile reveal"><span class="qnum">Pregunta 4</span><p>¿Qué hacemos cuando grupos muy diferentes no logran ponerse de acuerdo?</p></div></div><div class="callout c-del reveal"><svg class="cico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 12h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H20l-8 7v-7H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/><path d="M46 24h10a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4h-2v7l-8-7H30a4 4 0 0 1-4-4v-4"/></svg><div><p class="clabel">La propuesta</p><p>El filósofo alemán <strong>Jürgen Habermas</strong> (1929) parte de que votar no es suficiente, y propone un modelo distinto: la <strong>democracia deliberativa</strong>.</p></div></div></div>
+<div class="sentinel"></div></section>
+<section class="page" id="p-liberal" data-kind="lesson" aria-labelledby="h-liberal"><header class="phead k-liberal"><div class="phead-txt"><p class="kicker">Lección 2 · Modelo liberal</p><h2 id="h-liberal">El modelo liberal y sus límites</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="26" width="40" height="28" rx="3"/><path d="M22 26h20"/><rect x="24" y="8" width="16" height="22" rx="2" transform="rotate(8 32 19)"/><path d="M28 16l3 3 6-7" transform="rotate(8 32 19)"/></svg></div></header>
+<div class="prose"><figure class="video reveal" data-video="video1"><figcaption><span class="vtag">Video</span>El modelo liberal representativo, en síntesis<span class="vdur">1:25</span></figcaption><video controls preload="metadata" playsinline></video><div class="vmissing">Este video todavía no está disponible. Puedes continuar con el texto: el video lo acompaña, no lo reemplaza.</div><p class="vnote">Acompaña el texto de esta sección; no lo reemplaza.</p></figure><p class="reveal">Habermas describe el modelo liberal con una imagen sencilla. El Estado es un aparato administrativo. La sociedad es un espacio de personas privadas que persiguen sus propios intereses, sobre todo en el mercado. La democracia es el mecanismo que "programa" al Estado para que actúe en interés de la sociedad.</p><p class="reveal">Esta imagen tiene tres consecuencias:</p><div class="icards n3 "><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l20 8v14c0 13-9 23-20 28C21 51 12 41 12 28V14z"/><path d="M24 31l6 6 11-12"/></svg><h4>El ciudadano es, ante todo, alguien con derechos</h4><p>Esos derechos funcionan como un escudo: lo protegen de los abusos del Estado y de otras personas. Votar también es un derecho, y el ciudadano lo usa para defender lo que le conviene a él o a su grupo.</p></div><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 50h48M14 50V34h12v16M26 50V22h12v28M38 50V40h12v10"/><path d="M32 8l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8z"/></svg><h4>La política funciona como una competencia</h4><p>Los partidos compiten por ganar cargos, como las empresas compiten por clientes. Por eso actúan con <strong>acción estratégica</strong>: lo que buscan es ganar, y su éxito se mide en votos, no en si convencieron a alguien con buenos argumentos.</p></div><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="10" width="44" height="44" rx="8"/><path d="M32 20v24M20 32h24"/></svg><h4>La decisión es una suma</h4><p>Se cuentan los votos y gana la opción con más apoyos. No importa por qué votó cada persona, solo cuántas eligieron cada opción.</p></div></div><p class="reveal">Este modelo tiene dos ventajas: es realista, porque no le pide mucho al ciudadano, y protege la libertad de cada persona. Pero también tiene tres limitaciones.</p><h3 class="reveal">Tres limitaciones</h3><p class="howto reveal">Voltea cada casilla para conocer la limitación y sus casos. Cuando hayas descubierto las tres, podrás continuar.</p><div class="flipwrap" data-group="lim" data-count="3"><div class="flipset n3"><div class="flip" data-item="0"><button class="front" type="button" aria-expanded="false" aria-controls="fp-0"><span class="fnum">Limitación 1</span><span class="ftitle">El voto es un acto final, y la ciudadanía queda pasiva</span><span class="fhint">Voltear la casilla</span></button><div class="back"><span class="fnum">Limitación 1</span><h4>El voto es un acto final, y la ciudadanía queda pasiva</h4><p>En el modelo liberal, la participación se concentra en el día de la elección.</p><button class="lk seecase" type="button">Ver los casos ↓</button></div></div><div class="flip" data-item="1"><button class="front" type="button" aria-expanded="false" aria-controls="fp-1"><span class="fnum">Limitación 2</span><span class="ftitle">Una decisión puede ser legal y aun así excluyente</span><span class="fhint">Voltear la casilla</span></button><div class="back"><span class="fnum">Limitación 2</span><h4>Una decisión puede ser legal y aun así excluyente</h4><p>Para el modelo liberal, una ley es válida si fue aprobada por el procedimiento correcto.</p><button class="lk seecase" type="button">Ver los casos ↓</button></div></div><div class="flip" data-item="2"><button class="front" type="button" aria-expanded="false" aria-controls="fp-2"><span class="fnum">Limitación 3</span><span class="ftitle">La regla de la mayoría no resuelve desacuerdos profundos</span><span class="fhint">Voltear la casilla</span></button><div class="back"><span class="fnum">Limitación 3</span><h4>La regla de la mayoría no resuelve desacuerdos profundos</h4><p>Cuando la política es una suma de las preferencias de los ciudadanos, gana quien obtiene más votos, aunque sea por poco.</p><button class="lk seecase" type="button">Ver los casos ↓</button></div></div></div><div class="fpanels"><section class="fpanel" id="fp-0" data-for="0" hidden><h4>Limitación 1: el voto es un acto final, y la ciudadanía queda pasiva</h4><article class="casecard idea"><p class="clabel">En detalle</p><p>Entre elecciones, el ciudadano observa. Finlayson, un intérprete de Habermas, advierte que los gobiernos tienden a delegar decisiones en élites y expertos, y a "vender" luego esas decisiones al público, de modo que el ciudadano termina como un consumidor pasivo de políticas.</p></article><article class="casecard"><p class="clabel">Reino Unido, 2003</p><p>Como ejemplo, Finlayson cita la decisión del Reino Unido de apoyar la intervención militar en Irak en 2003. Hubo protestas ciudadanas muy numerosas, y el Parlamento aprobó la participación por 412 votos contra 149, con una rebelión notable dentro del partido de gobierno. Para Finlayson, el voto parlamentario parecía confirmar una decisión ya tomada. Fíjate en que la pregunta aquí no es si la guerra fue correcta, sino si el proceso permitió que las razones de la ciudadanía influyeran.</p></article><article class="casecard"><p class="clabel">Colombia, 2018</p><p>En Colombia, la consulta anticorrupción de agosto de 2018 muestra otra cara. Cada una de sus siete preguntas recibió más de 11 millones de votos por el Sí, pero ninguna alcanzó el umbral de 12,14 millones (un tercio del censo electoral), así que no fueron aprobadas por esa vía. Después, cuatro de los siete temas se convirtieron en ley mediante el Congreso. El caso muestra que votar, por sí solo, no garantiza una decisión: importan las reglas y los espacios donde la discusión continúa.</p></article></section><section class="fpanel" id="fp-1" data-for="1" hidden><h4>Limitación 2: una decisión puede ser legal y aun así excluyente</h4><article class="casecard idea"><p class="clabel">En detalle</p><p>Habermas distingue entre <strong>legalidad</strong> (la ley fue aprobada de forma correcta y puede imponerse) y <strong>legitimidad</strong> (existen buenas razones para aceptarla). Una norma puede cumplir lo primero sin cumplir lo segundo.</p></article><article class="casecard"><p class="clabel">Lo que muestra el caso</p><p>Un caso reciente en Colombia lo ilustra. En Cajamarca (Tolima), un municipio agrícola conocido como la despensa del país, la empresa AngloGold Ashanti obtuvo títulos mineros para el proyecto de oro La Colosa. Esos títulos eran legales: en Colombia el subsuelo pertenece al Estado, y es la Nación la que concede los permisos. Pero muchos habitantes, preocupados por el agua y los cultivos, sintieron que la decisión se había tomado sin ellos. El 26 de marzo de 2017, en una consulta popular, 6.165 personas votaron No a la minería en el municipio y 76 votaron Sí. En 2018, en un caso de otro municipio, la Corte Constitucional decidió que las consultas populares no pueden prohibir la minería, porque esa decisión no le corresponde solo al municipio; al mismo tiempo, pidió al Congreso crear mecanismos para que las comunidades participen y la Nación y los municipios se coordinen. El caso no permite decir si el proyecto era conveniente o no. Muestra que una decisión puede ser legal y, aun así, dejar sin voz a quienes más la sienten.</p></article></section><section class="fpanel" id="fp-2" data-for="2" hidden><h4>Limitación 3: la regla de la mayoría no resuelve desacuerdos profundos</h4><article class="casecard"><p class="clabel">Colombia, 2016</p><p>El plebiscito por la paz del 2 de octubre de 2016 lo muestra. Se preguntó a la ciudadanía si aprobaba el acuerdo entre el Gobierno y las FARC. Ganó el No con cerca de 50,2% frente a 49,8%, una diferencia de menos de un punto porcentual, y con una participación cercana al 37%. El acuerdo se renegoció y se firmó de nuevo en noviembre de 2016 sin nueva votación.</p></article><article class="casecard"><p class="clabel">Lo que muestra el caso</p><p>El caso no permite decir quién tenía la razón. Muestra algo distinto: cuando un país está casi partido en dos sobre un tema fundamental, contar votos decide, pero no ayuda a que cada lado entienda las razones del otro. Esa es la pregunta 4 del inicio, y la que la democracia deliberativa intenta responder.</p></article></section></div></div><div class="gated" data-gate="lim" hidden><figure class="video reveal" data-video="video2"><figcaption><span class="vtag">Video</span>Los límites del modelo liberal, en síntesis<span class="vdur">1:25</span></figcaption><video controls preload="metadata" playsinline></video><div class="vmissing">Este video todavía no está disponible. Puedes continuar con el texto: el video lo acompaña, no lo reemplaza.</div><p class="vnote">Acompaña el texto de esta sección; no lo reemplaza.</p></figure></div></div>
+<div class="sentinel"></div></section>
+<section class="page pause" id="p-p1" data-kind="pause" aria-labelledby="h-p1"><header class="phead k-pause"><div class="phead-txt"><p class="kicker">Pausa de comprobación 1 de 4</p><h2 id="h-p1">Actividad 1. Los límites del modelo liberal</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l26 26-26 26L6 32z"/><path d="M22 32l7 7 13-14"/></svg></div></header><div class="pz" id="pz-p1"></div></section>
+<section class="page" id="p-republicano" data-kind="lesson" aria-labelledby="h-republicano"><header class="phead k-republicano"><div class="phead-txt"><p class="kicker">Lección 3 · Modelo republicano</p><h2 id="h-republicano">El modelo republicano: participar no es lo mismo que deliberar</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="8"/><circle cx="32" cy="10" r="4"/><circle cx="51" cy="21" r="4"/><circle cx="51" cy="43" r="4"/><circle cx="32" cy="54" r="4"/><circle cx="13" cy="43" r="4"/><circle cx="13" cy="21" r="4"/></svg></div></header>
+<div class="prose"><figure class="video reveal" data-video="video3"><figcaption><span class="vtag">Video</span>El modelo republicano, en síntesis<span class="vdur">1:25</span></figcaption><video controls preload="metadata" playsinline></video><div class="vmissing">Este video todavía no está disponible. Puedes continuar con el texto: el video lo acompaña, no lo reemplaza.</div><p class="vnote">Acompaña el texto de esta sección; no lo reemplaza.</p></figure><p class="reveal">Frente al modelo liberal existe una segunda tradición, el <strong>republicanismo</strong>, que Habermas presenta como su opuesto. Para esta tradición, el ciudadano no es solo alguien que defiende intereses privados. Es alguien que <strong>participa</strong> en una vida común y, al hacerlo, se convierte en un miembro responsable de una comunidad de personas libres e iguales.</p><p class="reveal">Los rasgos del modelo son los siguientes:</p><div class="icards n4 two"><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 34V16a4 4 0 0 1 8 0v14M30 28V12a4 4 0 0 1 8 0v18M38 30V16a4 4 0 0 1 8 0v20c0 12-8 20-18 20-8 0-12-4-16-10l-6-10a4 4 0 0 1 7-4l5 6"/></svg><h4>La libertad se ejerce</h4><p>No basta con tener derechos: la libertad plena consiste en participar activamente en las decisiones colectivas.</p></div><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 12h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H20l-8 7v-7H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/><path d="M46 24h10a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4h-2v7l-8-7H30a4 4 0 0 1-4-4v-4"/></svg><h4>La política es diálogo, no mercado</h4><p>Los ciudadanos buscan ponerse de acuerdo sobre el bien común, y no solo sumar preferencias individuales.</p></div><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="32" r="12"/><circle cx="42" cy="32" r="12"/></svg><h4>Aparece una tercera fuente de cohesión</h4><p>Además del dinero (el mercado) y del poder administrativo (el Estado), la sociedad se sostiene por la <strong>solidaridad</strong> entre ciudadanos.</p></div><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 20L32 8l24 12H8z"/><path d="M14 24v24M24 24v24M40 24v24M50 24v24M8 52h48"/></svg><h4>El Estado existe para proteger esa práctica</h4><p>Y no solo para garantizar derechos privados.</p></div></div><p class="reveal">Sus fortalezas son claras, porque toma en serio la idea de que el pueblo se gobierna a sí mismo. Habermas señala también una debilidad. El modelo depende de que los ciudadanos compartan una identidad y unos valores, y de que actúen movidos por el bien común. En sociedades con muchas culturas, creencias e intereses distintos, eso es difícil de suponer.</p><div class="callout c-rep reveal"><svg class="cico" viewBox="0 0 64 64" aria-hidden="true"><path d="M4 32s10-16 28-16 28 16 28 16-10 16-28 16S4 32 4 32z"/><circle cx="32" cy="32" r="7"/></svg><div><p class="clabel">Una aclaración importante: participar no es lo mismo que deliberar</p><p>La participación es el rasgo central del modelo republicano: importa que mucha gente intervenga. En el modelo deliberativo, lo que importa es la <strong>calidad de las razones</strong> y del procedimiento con el que se discute, aunque no toda la ciudadanía participe directamente. Puede haber mucha participación sin buena deliberación (por ejemplo, una votación masiva tras una campaña de desinformación), y puede haber buena deliberación con una participación limitada.</p></div></div></div>
+<div class="sentinel"></div></section>
+<section class="page" id="p-deliberativo" data-kind="lesson" aria-labelledby="h-deliberativo"><header class="phead k-deliberativo"><div class="phead-txt"><p class="kicker">Lección 4 · Modelo deliberativo</p><h2 id="h-deliberativo">La democracia deliberativa</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 12h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H20l-8 7v-7H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/><path d="M46 24h10a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4h-2v7l-8-7H30a4 4 0 0 1-4-4v-4"/></svg></div></header>
+<div class="prose"><figure class="video reveal" data-video="video4"><figcaption><span class="vtag">Video</span>El modelo deliberativo, explicado</figcaption><video controls preload="metadata" playsinline></video><div class="vmissing">Este video todavía no está disponible. Puedes continuar con el texto: el video lo acompaña, no lo reemplaza.</div><p class="vnote">Acompaña el texto de esta sección; no lo reemplaza.</p></figure><p class="reveal">Habermas propone un tercer modelo que toma elementos de los dos anteriores. Del liberal conserva los derechos y el Estado de derecho. Del republicano, la idea de que la opinión y la voluntad de los ciudadanos deben formarse en el debate público. Pero no exige que los ciudadanos compartan una misma identidad, ni que todos participen directamente. Lo que pide es que existan <strong>procedimientos</strong> que garanticen una buena discusión.</p><h3 class="reveal">La idea central</h3><blockquote class="pull reveal">Una decisión política es válida no solo porque siga las reglas. Lo es porque las personas afectadas pueden <strong>entenderla, cuestionarla y aceptarla con razones</strong>. La democracia, entonces, no es solo un mecanismo para decidir: es también un proceso de conversación pública.</blockquote><p class="reveal">Esto se traduce en tres cambios frente al modelo liberal:</p><div class="icards n3 "><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 26v12h8l20 12V14L18 26z"/><path d="M46 24a10 10 0 0 1 0 16M52 18a18 18 0 0 1 0 28"/></svg><h4>Justificación pública</h4><p>No basta con que la ley exista: tiene que poder justificarse ante todos los afectados.</p></div><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 26a12 12 0 1 1 24 0c0 8-8 10-8 18a6 6 0 0 1-12 0"/><path d="M28 26a4 4 0 0 1 8 0"/></svg><h4>Derecho a ser escuchado</h4><p>Las minorías tienen derecho a que su posición sea escuchada y respondida, no solo contada.</p></div><div class="icard reveal"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="20" r="7"/><circle cx="44" cy="20" r="7"/><path d="M8 50c0-9 6-16 14-16s14 7 14 16M30 50c0-9 6-16 14-16s14 7 14 16"/></svg><h4>Conversación pública</h4><p>Las decisiones se preparan en un debate abierto, y no solo en el momento de votar.</p></div></div><h3 class="reveal">Cuatro momentos de una decisión deliberativa</h3><p class="howto reveal">Avanza momento por momento.</p><div class="stepper reveal" data-group="mom" data-count="4"><ol class="track"><li data-i="0" class=on><span>1</span>Deliberación</li><li data-i="1"><span>2</span>Justificación</li><li data-i="2"><span>3</span>Posibilidad de acuerdo</li><li data-i="3"><span>4</span>Legitimidad real</li></ol><div class="scards"><div class="scard" data-i="0"><span class="snum">1</span><div><h4>Deliberación</h4><p>Los ciudadanos intercambian argumentos en espacios públicos abiertos a todos.</p></div></div><div class="scard" data-i="1" hidden><span class="snum">2</span><div><h4>Justificación</h4><p>Cada propuesta debe poder explicarse con razones que cualquiera pueda entender y evaluar, no solo los expertos.</p></div></div><div class="scard" data-i="2" hidden><span class="snum">3</span><div><h4>Posibilidad de acuerdo</h4><p>El proceso busca que todos puedan aceptar la decisión, incluso quienes votaron en contra, porque entienden por qué se tomó. Este modelo no exige que todos estén de acuerdo en la práctica, sino que la decisión <strong>merezca</strong> el asentimiento de todos, porque fue tomada por un procedimiento justo y con razones que se pueden evaluar</p></div></div><div class="scard" data-i="3" hidden><span class="snum">4</span><div><h4>Legitimidad real</h4><p>La validez de una ley no viene de que la mayoría la haya apoyado, sino de que surgió de un proceso justo en el que todos pudieron participar.</p></div></div></div><p class="scta"><button class="btn gold" type="button">Siguiente momento →</button></p></div><div class="gated" data-gate="mom" hidden><div class="callout c-del reveal"><svg class="cico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24"/><path d="M25 25a7 7 0 1 1 10 6c-2 1-3 3-3 5v2"/><circle cx="32" cy="45" r="1.5"/></svg><div><p class="clabel">Ejemplo: los cuatro momentos en una decisión</p><p>Una universidad quiere empezar a cobrar el parqueadero. Primero abre foros con estudiantes, profesores y trabajadores para que cada grupo presente sus argumentos (<strong>deliberación</strong>). Luego publica los costos de mantenimiento y explica en lenguaje sencillo por qué propone el cobro (<strong>justificación</strong>). Después informa qué propuestas acogió, como una tarifa menor para quienes viven lejos, cuáles no y por qué; así, incluso quienes siguen en contra entienden las razones de la decisión (<strong>posibilidad de acuerdo</strong>). Por último, el consejo aprueba la medida: es válida no porque la haya votado la mayoría, sino porque todos los afectados pudieron participar en un proceso abierto (<strong>legitimidad real</strong>).</p></div></div></div><h3 class="reveal">Dos vías: la calle y las instituciones</h3><p class="reveal">Para Habermas, la política funciona en dos niveles que se necesitan entre sí:</p><div class="vias reveal"><div class="via v1"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="20" r="7"/><circle cx="44" cy="20" r="7"/><path d="M8 50c0-9 6-16 14-16s14 7 14 16M30 50c0-9 6-16 14-16s14 7 14 16"/></svg><h4>La esfera pública y la sociedad civil (informal)</h4><p>Son las asociaciones, los medios de comunicación, las universidades, los gremios y las redes donde la gente discute y forma opinión. Allí no se toman decisiones formales, pero se identifican problemas y se producen razones.</p></div><div class="vflow" aria-hidden="true"><span>razones y propuestas</span><svg viewBox="0 0 80 24"><path d="M2 12h70M62 4l10 8-10 8"/></svg></div><div class="via v2"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 20L32 8l24 12H8z"/><path d="M14 24v24M24 24v24M40 24v24M50 24v24M8 52h48"/></svg><h4>Las instituciones (formal)</h4><p>El Congreso, los concejos, los tribunales y el gobierno son los espacios que sí deciden.</p></div></div><p class="reveal">Una democracia funciona bien cuando sus instituciones son <em>porosas</em>, o sea, cuando dejan entrar lo que se discute afuera (en la esfera pública). Por eso las instituciones deben abrirse: los debates parlamentarios, los presupuestos y las políticas públicas deben poder ser cuestionados y modificados por la ciudadanía.</p><h3 class="reveal">Derechos y participación se necesitan mutuamente</h3><div class="callout c-navy reveal"><svg class="cico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="32" r="12"/><circle cx="42" cy="32" r="12"/></svg><div><p>Los liberales ponen primero los derechos de cada persona. Los republicanos ponen primero la participación de todos. Para Habermas, ninguno va primero: se necesitan mutuamente. Sin derechos como la libertad de expresión, de reunión y de prensa, nadie puede discutir con libertad. Y sin discusión pública, no hay forma de explicar por qué esos derechos valen para todos.</p></div></div><figure class="video reveal" data-video="video5"><figcaption><span class="vtag">Video</span>Los tres modelos, en síntesis<span class="vdur">1:30</span></figcaption><video controls preload="metadata" playsinline></video><div class="vmissing">Este video todavía no está disponible. Puedes continuar con el texto: el video lo acompaña, no lo reemplaza.</div><p class="vnote">Acompaña el texto de esta sección; no lo reemplaza.</p></figure></div>
+<div class="sentinel"></div></section>
+<section class="page pause" id="p-p2" data-kind="pause" aria-labelledby="h-p2"><header class="phead k-pause"><div class="phead-txt"><p class="kicker">Pausa de comprobación 2 de 4</p><h2 id="h-p2">Actividad 2. Tres modelos, tres criterios</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l26 26-26 26L6 32z"/><path d="M22 32l7 7 13-14"/></svg></div></header><div class="pz" id="pz-p2"></div></section>
+<section class="page" id="p-practica" data-kind="lesson" aria-labelledby="h-practica"><header class="phead k-deliberativo"><div class="phead-txt"><p class="kicker">Lección 5 · Casos</p><h2 id="h-practica">La deliberación en la práctica</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56s-16-15-16-28a16 16 0 0 1 32 0c0 13-16 28-16 28z"/><circle cx="32" cy="28" r="6"/></svg></div></header>
+<div class="prose"><p class="reveal">La democracia deliberativa no es solo teoría. Hay experiencias reales que se acercan a ella, con logros y límites. Ninguna es perfecta: sirven para ver cómo se ve un proceso donde las razones importan.</p><p class="howto reveal">Abre los tres casos. Cada uno tiene un video corto; si aún no está disponible, verás el caso por escrito.</p><div class="casetabs reveal" data-group="casos" data-count="3"><div class="ctabs" role="tablist"><button class="ctab" role="tab" type="button" id="ct-0" aria-controls="cp-0" aria-selected="false" data-i="0"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24"/><path d="M8 32h48M32 8c8 8 8 40 0 48M32 8c-8 8-8 40 0 48"/></svg><span><b>Irlanda</b><small>una asamblea de ciudadanos (2016-2018)</small></span></button><button class="ctab" role="tab" type="button" id="ct-1" aria-controls="cp-1" aria-selected="false" data-i="1"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="9"/><path d="M32 6v8M32 50v8M6 32h8M50 32h8M13.6 13.6l5.7 5.7M44.7 44.7l5.7 5.7M13.6 50.4l5.7-5.7M44.7 19.3l5.7-5.7"/></svg><span><b>Porto Alegre (Brasil)</b><small>el presupuesto participativo</small></span></button><button class="ctab" role="tab" type="button" id="ct-2" aria-controls="cp-2" aria-selected="false" data-i="2"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 56s-16-15-16-28a16 16 0 0 1 32 0c0 13-16 28-16 28z"/><circle cx="32" cy="28" r="6"/></svg><span><b>Colombia</b><small>los mecanismos de participación</small></span></button></div><div class="cpanel" role="tabpanel" id="cp-0" aria-labelledby="ct-0" data-i="0" hidden><figure class="video vt reveal" data-video="caso_irlanda"><figcaption><span class="vtag">Video</span>Irlanda: una asamblea de ciudadanos (2016-2018)</figcaption><video controls preload="metadata" playsinline></video><div class="vfallback"><p class="vflag">El video de este caso todavía no está disponible. Aquí lo tienes por escrito.</p><p>Durante décadas, Irlanda tuvo un debate público muy tenso sobre la regulación del aborto en su Constitución. Para salir del estancamiento, se convocó una <strong>asamblea ciudadana</strong> de personas elegidas al azar. Entre noviembre de 2016 y abril de 2017, esa asamblea, presidida por una jueza de la Corte Suprema, escuchó a expertos y a organizaciones con posiciones distintas, discutió y votó sus recomendaciones. Luego, un comité del Parlamento revisó su informe. En mayo de 2018, la ciudadanía votó en un referendo: 66,4% apoyó reformar la Constitución y la participación fue de 64%, la más alta en un referendo constitucional irlandés hasta entonces.</p><p>El caso no se presenta para defender una postura sobre el tema. Se presenta por su método: personas comunes, información de distintos lados, tiempo para discutir y un vínculo con las instituciones que decidieron.</p></div><details class="vdetails"><summary>Leer el caso por escrito</summary><p>Durante décadas, Irlanda tuvo un debate público muy tenso sobre la regulación del aborto en su Constitución. Para salir del estancamiento, se convocó una <strong>asamblea ciudadana</strong> de personas elegidas al azar. Entre noviembre de 2016 y abril de 2017, esa asamblea, presidida por una jueza de la Corte Suprema, escuchó a expertos y a organizaciones con posiciones distintas, discutió y votó sus recomendaciones. Luego, un comité del Parlamento revisó su informe. En mayo de 2018, la ciudadanía votó en un referendo: 66,4% apoyó reformar la Constitución y la participación fue de 64%, la más alta en un referendo constitucional irlandés hasta entonces.</p><p>El caso no se presenta para defender una postura sobre el tema. Se presenta por su método: personas comunes, información de distintos lados, tiempo para discutir y un vínculo con las instituciones que decidieron.</p></details></figure></div><div class="cpanel" role="tabpanel" id="cp-1" aria-labelledby="ct-1" data-i="1" hidden><figure class="video vt reveal" data-video="caso_portoalegre"><figcaption><span class="vtag">Video</span>Porto Alegre (Brasil): el presupuesto participativo</figcaption><video controls preload="metadata" playsinline></video><div class="vfallback"><p class="vflag">El video de este caso todavía no está disponible. Aquí lo tienes por escrito.</p><p>Desde 1989, la ciudad brasileña de Porto Alegre permite que los vecinos discutan y prioricen en qué se gasta parte del presupuesto municipal. Se reúnen en asambleas de cada distrito, eligen delegados y estos negocian durante el año las prioridades de inversión: pavimentación, escuelas, agua, transporte. Según un análisis del Lincoln Institute, la participación pasó de unas mil personas en 1990 a decenas de miles a finales de esa década, y el acceso a agua potable subió de 75% a 98% entre 1988 y 1997. El mismo análisis reconoce límites: la experiencia enfrentó la hostilidad de un concejo municipal opositor y ocurrió en un contexto de estancamiento económico.</p><p>Este caso interesa a los negocios y la ingeniería porque muestra cómo la deliberación puede orientar decisiones técnicas, como obras de infraestructura, con información que solo tienen quienes viven en el territorio.</p></div><details class="vdetails"><summary>Leer el caso por escrito</summary><p>Desde 1989, la ciudad brasileña de Porto Alegre permite que los vecinos discutan y prioricen en qué se gasta parte del presupuesto municipal. Se reúnen en asambleas de cada distrito, eligen delegados y estos negocian durante el año las prioridades de inversión: pavimentación, escuelas, agua, transporte. Según un análisis del Lincoln Institute, la participación pasó de unas mil personas en 1990 a decenas de miles a finales de esa década, y el acceso a agua potable subió de 75% a 98% entre 1988 y 1997. El mismo análisis reconoce límites: la experiencia enfrentó la hostilidad de un concejo municipal opositor y ocurrió en un contexto de estancamiento económico.</p><p>Este caso interesa a los negocios y la ingeniería porque muestra cómo la deliberación puede orientar decisiones técnicas, como obras de infraestructura, con información que solo tienen quienes viven en el territorio.</p></details></figure></div><div class="cpanel" role="tabpanel" id="cp-2" aria-labelledby="ct-2" data-i="2" hidden><figure class="video vt reveal" data-video="caso_colombia"><figcaption><span class="vtag">Video</span>Colombia: los mecanismos de participación</figcaption><video controls preload="metadata" playsinline></video><div class="vfallback"><p class="vflag">El video de este caso todavía no está disponible. Aquí lo tienes por escrito.</p><p>La Constitución de 1991 y las leyes 134 de 1994 y 1757 de 2015 crearon varios mecanismos de participación ciudadana, según la Registraduría: el voto, el plebiscito, el referendo, la consulta popular, el cabildo abierto, la iniciativa legislativa y la revocatoria del mandato.</p><p>Desde el criterio deliberativo, conviene notar una diferencia. Casi todos son formas de <strong>votar</strong> sobre una pregunta ya formulada, como el plebiscito o la consulta que viste antes. Votar es importante, pero no equivale a deliberar. El <strong>cabildo abierto</strong>, una reunión pública donde los ciudadanos discuten asuntos de interés local con las autoridades, es el mecanismo que más se parece a un espacio deliberativo. La pregunta que deja el caso colombiano es si los espacios donde se discute son tan usados como los espacios donde se vota.</p></div><details class="vdetails"><summary>Leer el caso por escrito</summary><p>La Constitución de 1991 y las leyes 134 de 1994 y 1757 de 2015 crearon varios mecanismos de participación ciudadana, según la Registraduría: el voto, el plebiscito, el referendo, la consulta popular, el cabildo abierto, la iniciativa legislativa y la revocatoria del mandato.</p><p>Desde el criterio deliberativo, conviene notar una diferencia. Casi todos son formas de <strong>votar</strong> sobre una pregunta ya formulada, como el plebiscito o la consulta que viste antes. Votar es importante, pero no equivale a deliberar. El <strong>cabildo abierto</strong>, una reunión pública donde los ciudadanos discuten asuntos de interés local con las autoridades, es el mecanismo que más se parece a un espacio deliberativo. La pregunta que deja el caso colombiano es si los espacios donde se discute son tan usados como los espacios donde se vota.</p></details></figure></div></div><div class="gated" data-gate="casos" hidden><h3>Cómo leer estos casos</h3><p class="reveal">Puedes usar los cuatro momentos del modelo como una lista de verificación para analizar cualquier decisión política:</p><div class="table-wrap reveal"><table>
+<thead>
+<tr>
+<th>Pregunta de análisis</th>
+<th>Irlanda</th>
+<th>Porto Alegre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Hubo deliberación abierta?</td>
+<td>Sí: meses de discusión con expertos y grupos distintos.</td>
+<td>Sí: asambleas de distrito y delegados.</td>
+</tr>
+<tr>
+<td>¿Las propuestas se justificaron con razones comprensibles?</td>
+<td>Sí: se presentaron argumentos de varios lados.</td>
+<td>Sí: los vecinos explican sus prioridades.</td>
+</tr>
+<tr>
+<td>¿Los afectados podían aceptar el resultado?</td>
+<td>El referendo posterior permitió que la ciudadanía decidiera.</td>
+<td>Las obras responden a prioridades definidas por los vecinos.</td>
+</tr>
+<tr>
+<td>¿El proceso influyó en la decisión final?</td>
+<td>Sí: el Parlamento y el referendo retomaron las recomendaciones.</td>
+<td>Sí, aunque enfrentó resistencias institucionales.</td>
+</tr>
+</tbody>
+</table></div></div></div>
+<div class="sentinel"></div></section>
+<section class="page pause" id="p-p3" data-kind="pause" aria-labelledby="h-p3"><header class="phead k-pause"><div class="phead-txt"><p class="kicker">Pausa de comprobación 3 de 4</p><h2 id="h-p3">Actividad 3. Los cuatro momentos en un caso</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l26 26-26 26L6 32z"/><path d="M22 32l7 7 13-14"/></svg></div></header><figure class="video reveal" data-video="caso"><figcaption><span class="vtag">Video</span>Video del caso: el agua de Villa Aurora</figcaption><video controls preload="metadata" playsinline></video><div class="vmissing">Este video todavía no está disponible. Puedes continuar con el texto: el video lo acompaña, no lo reemplaza.</div><p class="vnote">El caso también está escrito en la actividad.</p></figure><div class="pz" id="pz-p3"></div></section>
+<section class="page" id="p-balance" data-kind="lesson" aria-labelledby="h-balance"><header class="phead k-amber"><div class="phead-txt"><p class="kicker">Lección 6 · Balance</p><h2 id="h-balance">Balance crítico: alcances y límites</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8v48M20 56h24M12 18h40"/><path d="M12 18L4 36h16L12 18zM52 18l-8 18h16l-8-18z"/></svg></div></header>
+<div class="prose"><p class="reveal">Un buen análisis no consiste en aceptar un modelo, sino en saber qué logra y qué no resuelve. Esta sección presenta un balance general. Las críticas se desarrollarán en la próxima clase.</p><p class="howto reveal">Abre cada argumento para ponerlo en la balanza. Cuando hayas abierto los seis, verás el resultado del balance.</p><div class="balance reveal" data-group="bal" data-count="6"><svg class="scale" viewBox="0 0 360 170" aria-hidden="true"><path class="post" d="M180 40v110M140 158h80"/><g class="beam"><path class="bar" d="M50 40h260"/><circle cx="180" cy="40" r="7" class="hub"/><g class="pan pl"><path d="M50 40l-28 56M50 40l28 56"/><path class="dish" d="M14 96h72a36 14 0 0 1-72 0z"/><text x="50" y="126" text-anchor="middle" class="w" id="wl">0</text></g><g class="pan pr"><path d="M310 40l-28 56M310 40l28 56"/><path class="dish" d="M274 96h72a36 14 0 0 1-72 0z"/><text x="310" y="126" text-anchor="middle" class="w" id="wr">0</text></g></g></svg><div class="bcols"><div class="bcol pro"><h4>Lo que este modelo logra</h4><div class="wcard pro"><button type="button" class="wt" aria-expanded="false"><span class="wdot"></span>Exige que el poder se justifique públicamente</button><div class="wb" hidden><p>Ya no basta decir "porque lo dice la ley" o "porque ganamos las elecciones". Quien decide debe dar razones que los afectados puedan evaluar.</p></div></div><div class="wcard pro"><button type="button" class="wt" aria-expanded="false"><span class="wdot"></span>Conecta la ética con la política</button><div class="wb" hidden><p>Una decisión debe ser no solo legal, sino también razonablemente justa.</p></div></div><div class="wcard pro"><button type="button" class="wt" aria-expanded="false"><span class="wdot"></span>Convierte la diversidad de perspectivas en un recurso</button><div class="wb" hidden><p>Las diferencias entre personas, regiones o sectores aportan información a la decisión, y no son solo un obstáculo.</p></div></div></div><div class="bcol con"><h4>Lo que este modelo no resuelve</h4><div class="wcard con"><button type="button" class="wt" aria-expanded="false"><span class="wdot"></span>Condiciones ideales</button><div class="wb" hidden><p>El modelo supone que todos hablan en igualdad de condiciones, pero el dinero, el poder y el acceso a los medios distorsionan quién es escuchado. Sitton lo ilustra con quienes controlan la inversión, y James Scott ironiza que Habermas ve la sociedad civil como "un seminario de posgrado perfecto".</p></div></div><div class="wcard con"><button type="button" class="wt" aria-expanded="false"><span class="wdot"></span>Conflictos profundos</button><div class="wb" hidden><p>Hay desacuerdos, sobre la tierra, la identidad, la memoria o el aborto, que no se resuelven con un mejor argumento porque tocan valores no negociables. Irlanda muestra que la deliberación ayuda sin garantizar consenso; el plebiscito de 2016 muestra un desacuerdo de este tipo.</p></div></div><div class="wcard con"><button type="button" class="wt" aria-expanded="false"><span class="wdot"></span>Riesgo tecnocrático</button><div class="wb" hidden><p>Si solo participan de verdad quienes dominan el lenguaje del debate, el modelo excluye; además, Finlayson observa que Habermas no precisa cuánta influencia debe tener la discusión ciudadana sobre las decisiones del gobierno.</p></div></div></div></div></div><div class="gated" data-gate="bal" hidden><div class="callout c-amber reveal"><svg class="cico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8v48M20 56h24M12 18h40"/><path d="M12 18L4 36h16L12 18zM52 18l-8 18h16l-8-18z"/></svg><div><p class="clabel">El resultado del balance</p><p>Estos límites no invalidan el modelo, pero muestran que es un ideal hacia el cual se puede avanzar y no una fórmula que se aplica una sola vez. Las preguntas que deja abiertas son el punto de partida de la próxima sesión.</p></div></div></div></div>
+<div class="sentinel"></div></section>
+<section class="page pause" id="p-p4" data-kind="pause" aria-labelledby="h-p4"><header class="phead k-pause"><div class="phead-txt"><p class="kicker">Pausa de comprobación 4 de 4</p><h2 id="h-p4">Actividad 4. Alcances y límites de la deliberación</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l26 26-26 26L6 32z"/><path d="M22 32l7 7 13-14"/></svg></div></header><div class="pz" id="pz-p4"></div></section>
+<section class="page" id="p-cierre" data-kind="lesson" aria-labelledby="h-cierre"><header class="phead k-navy"><div class="phead-txt"><p class="kicker">Lección 7 · Cierre</p><h2 id="h-cierre">Cierre: por qué esto importa</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24"/><path d="M40 24l-5 11-11 5 5-11z"/></svg></div></header>
+<div class="prose"><p class="reveal">La discusión sobre los modelos de democracia no es solo un asunto de filósofos. Cada modelo responde de manera distinta a la pregunta de qué hace válida una decisión colectiva, y esa respuesta define cómo se organizan las instituciones, qué se le pide a la ciudadanía y qué se considera una decisión justa.</p><h3 class="reveal">Como ciudadano</h3><p class="reveal">Saber estos modelos te da criterios para evaluar lo que ves en las noticias. Ante una decisión pública, puedes preguntarte:</p><div class="checkq"><div class="cq reveal"><span>1</span><div><b>¿Quiénes resultan afectados?</b> ¿Se les escuchó?</div></div><div class="cq reveal"><span>2</span><div><b>¿Qué razones se dieron?</b> ¿Pueden ser evaluadas por cualquiera, o solo por especialistas?</div></div><div class="cq reveal"><span>3</span><div><b>¿Puede aceptarse la decisión aunque no me favorezca?</b> ¿Por qué sí o por qué no?</div></div></div><h3 class="reveal">Como profesional</h3><p class="reveal">En tu carrera participarás en decisiones que afectan a otras personas. Elige tu programa:</p><div class="progs reveal"><div class="chips"><button type="button" class="chip" data-i="0" aria-pressed="false"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24"/><path d="M8 32h48M32 8c8 8 8 40 0 48M32 8c-8 8-8 40 0 48"/></svg>Negocios internacionales</button><button type="button" class="chip" data-i="1" aria-pressed="false"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 52C12 26 30 12 54 10c0 26-16 42-40 42z"/><path d="M12 52L36 28"/></svg>Administración de empresas agropecuarias</button><button type="button" class="chip" data-i="2" aria-pressed="false"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="9"/><path d="M32 6v8M32 50v8M6 32h8M50 32h8M13.6 13.6l5.7 5.7M44.7 44.7l5.7 5.7M13.6 50.4l5.7-5.7M44.7 19.3l5.7-5.7"/></svg>Ingenierías</button></div><div class="progp" data-i="0" hidden><p>En negocios internacionales, en normas de comercio y regulaciones que involucran a empresas, gobiernos y comunidades.</p></div><div class="progp" data-i="1" hidden><p>En administración de empresas agropecuarias, en decisiones sobre tierra, agua y producción donde conviven intereses distintos.</p></div><div class="progp" data-i="2" hidden><p>En ingeniería, en proyectos de infraestructura cuya aceptación depende de si las comunidades entienden y pueden cuestionar lo que se planea.</p></div></div><p class="reveal">En todos esos casos, según Habermas, las personas tienden a acatar con más facilidad las normas cuyas razones comprenden, y por eso esas decisiones son más estables.</p><p class="closing reveal">Este recurso no te pide adoptar un modelo. Te pide reconocer qué supone cada uno y usar ese criterio para leer la realidad con más claridad.</p></div>
+<div class="sentinel"></div></section>
+<section class="page" id="p-glosario" data-kind="ref" aria-labelledby="h-glosario"><header class="phead k-navy"><div class="phead-txt"><p class="kicker">Consulta</p><h2 id="h-glosario">Glosario y fuentes</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 12h18a6 6 0 0 1 6 6v36a5 5 0 0 0-5-5H10zM54 12H36a6 6 0 0 0-6 6v36a5 5 0 0 1 5-5h19z"/></svg></div></header>
+<div class="prose"><h3>Glosario</h3><dl class="gloss"><div class="gterm"><dt>Democracia liberal representativa</dt><dd>Sistema en el que los ciudadanos eligen representantes que deciden por ellos, con derechos protegidos por la ley.</dd></div><div class="gterm"><dt>Agregación de preferencias</dt><dd>Sumar lo que cada persona quiere (por ejemplo, con votos) para que gane la opción con más apoyo.</dd></div><div class="gterm"><dt>Acción estratégica</dt><dd>Actuar para lograr un resultado propio, como ganar votos, sin buscar necesariamente que los demás compartan las razones.</dd></div><div class="gterm"><dt>Legalidad</dt><dd>Una norma es legal cuando se aprobó por el procedimiento correcto y puede imponerse.</dd></div><div class="gterm"><dt>Legitimidad</dt><dd>Una norma es legítima cuando existen buenas razones para aceptarla, además de ser legal.</dd></div><div class="gterm"><dt>Republicanismo</dt><dd>Tradición que entiende la libertad como participación activa en las decisiones de una comunidad.</dd></div><div class="gterm"><dt>Deliberación</dt><dd>Discusión pública en la que las personas ofrecen razones y están dispuestas a evaluar las de otros.</dd></div><div class="gterm"><dt>Justificación pública</dt><dd>Explicar una decisión con razones que cualquier persona afectada pueda entender y evaluar.</dd></div><div class="gterm"><dt>Esfera pública y sociedad civil</dt><dd>Espacios informales (medios, asociaciones, universidades, redes) donde se forma la opinión sobre asuntos comunes.</dd></div><div class="gterm"><dt>Poder comunicativo</dt><dd>Fuerza de las razones que circulan en la sociedad y que influyen en las decisiones.</dd></div><div class="gterm"><dt>Poder administrativo</dt><dd>Capacidad del Estado para tomar decisiones y aplicarlas.</dd></div><div class="gterm"><dt>Asamblea ciudadana</dt><dd>Grupo de personas elegidas al azar para informarse, discutir y recomendar sobre un tema público.</dd></div></dl><h3>Fuentes</h3><p>Textos base:</p><ul>
+<li>Habermas, J. (2005). Tres modelos de democracia. Sobre el concepto de una política deliberativa. <em>Polis, Revista Latinoamericana, 10</em>.</li>
+<li>Finlayson, J. G. (2005). <em>Habermas: A Very Short Introduction</em>. Oxford University Press. Cap. 8, "Politics, democracy, and law".</li>
+<li>Sitton, J. F. (2003). <em>Habermas and Contemporary Society</em>. Palgrave Macmillan. Cap. 7.</li>
+</ul><p>Casos y datos (consultados en septiembre de 2026):</p><ul class="links">
+<li><a target="_blank" rel="noopener" href="https://www.eltiempo.com/politica/proceso-de-paz/resultados-plebiscito-2016-42861">Resultados plebiscito 2016 – El Tiempo</a></li>
+<li><a target="_blank" rel="noopener" href="https://centrodememoriahistorica.gov.co/el-plebiscito-por-la-paz-una-decision-que-marco-el-rumbo-de-colombia/">El plebiscito por la paz – Centro Nacional de Memoria Histórica</a></li>
+<li><a target="_blank" rel="noopener" href="https://es.wikipedia.org/wiki/Consulta_popular_anticorrupci%C3%B3n_de_Colombia">Consulta popular anticorrupción de Colombia – Wikipedia</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infobae.com/colombia/2024/04/26/cajamarca-celebra-en-consulta-gano-el-no-a-la-megamineria/">Cajamarca celebra: en consulta ganó el “no” a la megaminería – Infobae</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ambitojuridico.com/noticias/informe/administrativo-y-contratacion/consultas-populares-mineras-en-que-quedo-la">Consultas populares mineras, ¿en qué quedó la autonomía territorial y la democracia participativa? – Ámbito Jurídico</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.registraduria.gov.co/-Mecanismos-de-participacion-ciudadana-50-.html">Mecanismos de participación ciudadana – Registraduría Nacional</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Thirty-sixth_Amendment_of_the_Constitution_of_Ireland">Thirty-sixth Amendment of the Constitution of Ireland – Wikipedia</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/British_parliamentary_approval_for_the_invasion_of_Iraq">British parliamentary approval for the invasion of Iraq – Wikipedia</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lincolninst.edu/es/publications/articles/presupuesto-participativo-politicas-poderes-en-porto-alegre/">Presupuesto participativo y políticas de poderes en Porto Alegre – Lincoln Institute</a></li>
+</ul></div>
+<div class="sentinel"></div></section>
+<section class="page" id="p-resultados" data-kind="final" aria-labelledby="h-resultados"><header class="phead k-pause"><div class="phead-txt"><p class="kicker">Final del recorrido</p><h2 id="h-resultados">Mi nota</h2></div><div class="emblem"><svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6l26 26-26 26L6 32z"/><path d="M22 32l7 7 13-14"/></svg></div></header><div id="res"></div></section>
+<noscript><p>Este recurso necesita JavaScript activado.</p></noscript>
+<footer class="credit" aria-label="Autoría"><span class="cr-mark" aria-hidden="true"></span><p><span class="cr-lab">Recurso elaborado por</span> <b>Marya Hinira Sáenz Cabezas</b><span class="cr-sub"> · Filosofía Política</span></p></footer>
+</main>
+<div class="rd-pop" id="rdpop" role="dialog" aria-label="Modo lectura" hidden><p class="rd-t">Modo lectura</p><p class="rd-s">Tamaño de la letra</p><div class="rd-row"><button type="button" class="rd-b" data-fs="-1" aria-label="Disminuir el tamaño de la letra">A−</button><span class="rd-v" id="rdval" aria-live="polite">100%</span><button type="button" class="rd-b" data-fs="1" aria-label="Aumentar el tamaño de la letra">A+</button></div><button type="button" class="rd-reset" data-fs="0">Restablecer</button></div>
+</div>
+</div>
+<script src="lib/scorm.js"></script>
+<script>window.DD = {"chain": [{"id": "inicio", "kind": "lesson", "label": "Inicio"}, {"id": "partida", "kind": "lesson", "label": "Punto de partida"}, {"id": "liberal", "kind": "lesson", "label": "El modelo liberal y sus límites"}, {"id": "p1", "kind": "pause", "label": "Actividad 1 · Los límites del modelo liberal"}, {"id": "republicano", "kind": "lesson", "label": "El modelo republicano"}, {"id": "deliberativo", "kind": "lesson", "label": "La democracia deliberativa"}, {"id": "p2", "kind": "pause", "label": "Actividad 2 · Tres modelos, tres criterios"}, {"id": "practica", "kind": "lesson", "label": "La deliberación en la práctica"}, {"id": "p3", "kind": "pause", "label": "Actividad 3 · Los cuatro momentos en un caso"}, {"id": "balance", "kind": "lesson", "label": "Balance crítico"}, {"id": "p4", "kind": "pause", "label": "Actividad 4 · Alcances y límites"}, {"id": "cierre", "kind": "lesson", "label": "Cierre"}], "extra": [{"id": "resultados", "kind": "final", "label": "Mi nota"}, {"id": "glosario", "kind": "ref", "label": "Glosario y fuentes"}], "acts": [{"id": "p1", "n": 1, "tras": "liberal", "corto": "Los límites del modelo liberal", "titulo": "Actividad 1. Los límites del modelo liberal", "modelo": "liberal", "intro": "Tres preguntas sobre el modelo liberal y sus limitaciones: una de selección, una para relacionar y una de verdadero o falso.", "caso": null, "q": [{"id": "p1q1", "tipo": "unica", "t": "Razonamiento: «La ley se aprobó siguiendo todos los pasos del reglamento. Por lo tanto, es legítima». ¿Dónde falla?", "o": ["Confunde legalidad con legitimidad: seguir el procedimiento no garantiza que existan buenas razones para aceptar la norma.", "Ignora que una ley solo es legítima cuando la aprueban por unanimidad todos y cada uno de los miembros del órgano que la expide.", "Olvida que los reglamentos no son procedimientos, así que ninguna ley puede aprobarse siguiendo sus pasos formales.", "Supone que la legitimidad depende únicamente de lo que opine la ciudadanía en las redes sociales, y no de las razones."], "k": "e3b09fa9"}, {"id": "p1q2", "tipo": "emparejar", "t": "Relaciona cada situación con la limitación del modelo liberal que mejor ilustra.", "l": [{"id": "efsp", "tx": "Un ministerio diseña con técnicos una reforma tributaria y luego lanza una campaña publicitaria para «venderla». La ciudadanía solo podrá opinar en las próximas elecciones."}, {"id": "xuhc", "tx": "Un concejo aprueba, con todos los requisitos, un reglamento de plazas de mercado que solo discutió con los grandes comerciantes. Los vendedores informales no tuvieron dónde hablar."}, {"id": "wzrs", "tx": "Una consulta sobre una represa se gana por 50,6% contra 49,4%. Al día siguiente, cada bando acusa al otro de no entender nada."}], "r": [{"id": "mujy", "tx": "Una decisión puede ser legal y aun así excluyente"}, {"id": "uzhw", "tx": "El voto es un acto final y la ciudadanía queda pasiva"}, {"id": "dkqk", "tx": "La regla de la mayoría no resuelve desacuerdos profundos"}], "k": {"efsp": "5c24c29d", "xuhc": "2fe07dce", "wzrs": "19659ea4"}}, {"id": "p1q3", "tipo": "vf", "t": "Indica si cada afirmación sobre el modelo liberal es verdadera o falsa.", "s": [{"id": "tjkb", "tx": "En el modelo liberal, el ciudadano usa su voto sobre todo para defender sus propios intereses."}, {"id": "knyg", "tx": "Para el modelo liberal, al contar los votos lo decisivo es saber por qué votó cada persona."}, {"id": "rbhw", "tx": "Una norma aprobada con más del 95% de los votos garantiza que todas las voces pudieron participar."}], "k": {"tjkb": "402d5ff1", "knyg": "f34b435b", "rbhw": "f59052ab"}}]}, {"id": "p2", "n": 2, "tras": "deliberativo", "corto": "Tres modelos, tres criterios", "titulo": "Actividad 2. Tres modelos, tres criterios", "modelo": "deliberativo", "intro": "Tres preguntas para distinguir los modelos liberal, republicano y deliberativo: una para clasificar, una de selección y una para ordenar.", "caso": null, "q": [{"id": "p2q1", "tipo": "emparejar", "t": "Clasifica cada situación según el modelo desde el que se justifica la decisión. Fíjate en qué la vuelve válida.", "l": [{"id": "mezh", "tx": "Los concejales negocian entre partidos un puerto seco y cada uno defiende los intereses de sus votantes. La decisión vale porque obtuvo la mayoría y no viola derechos."}, {"id": "pmpa", "tx": "Una comunidad rural aprueba solo proyectos que fortalezcan su identidad y sus tradiciones. Se espera que todos asistan a las asambleas, porque ser buen ciudadano es tomar parte en la vida común."}, {"id": "awxa", "tx": "Antes de votar una norma sobre el agua, se abren mesas donde agricultores, técnicos y empresas exponen sus razones, y se publica cómo se respondió a cada objeción."}], "r": [{"id": "zacr", "tx": "Modelo liberal"}, {"id": "nuxw", "tx": "Modelo republicano"}, {"id": "mvdm", "tx": "Modelo deliberativo"}], "k": {"mezh": "8ca0eb43", "pmpa": "d786c56f", "awxa": "b87ef406"}}, {"id": "p2q2", "tipo": "unica", "t": "Razonamiento: «En la consulta del municipio votó el 70% del censo. Como participó tanta gente, la decisión fue deliberativa». ¿Dónde falla?", "o": ["Confunde participación con deliberación: lo que importa es la calidad de las razones y del procedimiento, no cuánta gente vota.", "Supone que en el modelo deliberativo el voto no cumple ningún papel, cuando en realidad es la única fuente de legitimidad que reconoce.", "Ignora que un 70% de votantes no alcanza para que una decisión sea considerada válida en ninguno de los tres modelos de democracia.", "Confunde el modelo liberal con el republicano, porque solo el liberal mide la participación en votos y no en argumentos."], "k": "59ea14ff"}, {"id": "p2q3", "tipo": "orden", "t": "Ordena, del primero al último, los pasos por los que una discusión de la esfera pública llega a convertirse en una decisión, según Habermas.", "it": [{"id": "wwjw", "tx": "De esa discusión surgen razones y propuestas que ganan apoyo en la opinión pública."}, {"id": "qwee", "tx": "El concejo recoge esas razones al debatir y aprueba un nuevo plan de movilidad."}, {"id": "awty", "tx": "Vecinos, gremios y universidades discuten en foros y medios los problemas del transporte de la ciudad."}, {"id": "adjx", "tx": "La administración municipal aplica el plan aprobado."}], "k": {"awty": "8eca88d3", "wwjw": "e3b942f0", "qwee": "51595700", "adjx": "ca68bfcc"}}]}, {"id": "p3", "n": 3, "tras": "practica", "corto": "Los cuatro momentos en un caso", "titulo": "Actividad 3. Los cuatro momentos en un caso", "modelo": "deliberativo", "intro": "Lee el caso (o mira el video, si está disponible) y responde con los criterios del modelo deliberativo: deliberación, justificación, posibilidad de acuerdo y legitimidad real.", "caso": "<p><em>Caso ficticio: el agua de Villa Aurora.<\/em> Villa Aurora es un municipio ficticio. Su río principal, el Río Claro, abastece a la población y riega los cultivos de pequeños productores de la zona baja. La alcaldía propone destinar una parte del caudal a un parque logístico con cadena de frío para exportar fruta. El proyecto generaría <strong>300 empleos<\/strong>.<\/p><p><strong>Primera etapa.<\/strong> La alcaldía contrata una consultoría, que entrega un estudio técnico de <strong>200 páginas<\/strong> con términos como caudal ecológico y balance hídrico. Se realiza una audiencia pública un martes a las 10 de la mañana, con unas <strong>40 personas<\/strong>. La asociación de productores, la cámara de comercio y la junta de acción comunal hablan <strong>3 minutos<\/strong> cada una. Los funcionarios escuchan y no responden durante la audiencia. La alcaldía no publica respuestas por escrito. Una segunda audiencia prevista no se realiza. El concejo municipal aprueba el proyecto por <strong>11 votos contra 4<\/strong>, siguiendo su reglamento. Algunos productores dicen después que no entendieron las cifras del estudio.<\/p><p><strong>Segunda etapa.<\/strong> Tres meses después, la alcaldía publica un resumen del estudio en lenguaje sencillo y abre un plazo de <strong>30 días<\/strong> para recibir comentarios por escrito. Realiza dos talleres en veredas. Responde por escrito a cada comentario y publica las respuestas. Explica públicamente qué objeciones aceptó, cuáles no y por qué. Reduce en <strong>20%<\/strong> el caudal destinado al parque y reserva una parte para riego. El concejo aprueba la versión ajustada por <strong>9 votos contra 6<\/strong>. Algunos productores siguen en desacuerdo con la decisión.<\/p>", "q": [{"id": "p3q1", "tipo": "emparejar", "t": "Relaciona cada hecho de la segunda etapa con el momento de la decisión deliberativa al que corresponde.", "l": [{"id": "cxym", "tx": "Dos talleres en veredas y 30 días para enviar comentarios."}, {"id": "kkmu", "tx": "Un resumen del estudio en lenguaje sencillo."}, {"id": "xrhy", "tx": "La alcaldía explica qué objeciones aceptó, cuáles no y por qué."}, {"id": "hsef", "tx": "La versión ajustada se aprueba tras un proceso en el que todos los afectados pudieron participar."}], "r": [{"id": "ghax", "tx": "Posibilidad de acuerdo"}, {"id": "nfrz", "tx": "Justificación"}, {"id": "dzth", "tx": "Deliberación"}, {"id": "rwef", "tx": "Legitimidad real"}], "k": {"cxym": "1f1eeee1", "kkmu": "398c6854", "xrhy": "be7846d5", "hsef": "31cb05da"}}, {"id": "p3q2", "tipo": "unica", "t": "¿Cómo se describe mejor la primera aprobación del proyecto?", "o": ["Legal por seguir el reglamento, pero de legitimidad discutible: los afectados no evaluaron razones ni recibieron respuesta.", "Legítima, porque la aprobó la mayoría del concejo y eso basta para que los afectados deban aceptarla sin más.", "Ilegal, porque hubo 4 concejales que votaron en contra y la decisión del concejo municipal no fue tomada por unanimidad.", "Ilegítima porque el estudio técnico lo elaboró una consultoría externa contratada por la alcaldía y no los funcionarios del municipio."], "k": "343a044a"}, {"id": "p3q3", "tipo": "vf", "t": "Indica si cada afirmación sobre el caso de Villa Aurora es verdadera o falsa.", "s": [{"id": "kwfb", "tx": "Como algunos productores siguen en desacuerdo, la segunda aprobación es ilegítima."}, {"id": "spmg", "tx": "En la segunda etapa, el voto del concejo siguió siendo el paso final de la decisión."}, {"id": "ayrx", "tx": "En la primera etapa, los funcionarios respondieron las objeciones durante la audiencia."}], "k": {"kwfb": "a59ccee", "spmg": "6f48985f", "ayrx": "8bb5c8b8"}}]}, {"id": "p4", "n": 4, "tras": "balance", "corto": "Alcances y límites", "titulo": "Actividad 4. Alcances y límites de la deliberación", "modelo": "republicano", "intro": "Tres preguntas sobre lo que logra y lo que no resuelve el modelo deliberativo: dos de selección y una para relacionar.", "caso": null, "q": [{"id": "p4q1", "tipo": "unica", "t": "Un gobierno departamental convoca una consulta popular sobre una obra, pero no informó ni abrió espacios de debate antes de votar. ¿Qué argumento explica mejor la debilidad del proceso desde el modelo deliberativo?", "o": ["El voto es el momento final de un proceso: sin discusión previa con razones, contar votos no basta para legitimar la decisión.", "Las consultas populares son antidemocráticas por definición, porque el pueblo no está en condiciones de decidir sobre obras públicas.", "El problema es que decidió el pueblo y no un grupo de expertos, que habría llegado a una decisión más racional y barata.", "La consulta solo sería válida si votara más del 50% del censo electoral, sea cual sea el proceso de información y debate que la precedió."], "k": "d3999db6"}, {"id": "p4q2", "tipo": "emparejar", "t": "Relaciona cada situación con el límite del modelo deliberativo que pone en evidencia.", "l": [{"id": "bphy", "tx": "Una empresa financia una campaña en medios y redes, y su versión domina el debate público sobre una planta de energía."}, {"id": "ucev", "tx": "Tras meses de diálogo sobre un territorio, dos comunidades siguen sin aceptar las razones de la otra, porque está en juego su historia y su identidad."}, {"id": "qwkd", "tx": "En las mesas sobre un acueducto solo cuentan los argumentos de quienes dominan términos como caudal y presión; los demás dejan de hablar."}], "r": [{"id": "zjmg", "tx": "Condiciones ideales"}, {"id": "zhgy", "tx": "Riesgo tecnocrático"}, {"id": "nnva", "tx": "Conflictos profundos"}], "k": {"bphy": "ae109917", "ucev": "34033d04", "qwkd": "28075cc3"}}, {"id": "p4q3", "tipo": "unica", "t": "¿Qué afirmación resume mejor el balance del modelo deliberativo que hace el recurso?", "o": ["Sus límites no lo invalidan: es un ideal hacia el cual se puede avanzar, no una fórmula que se aplica una sola vez.", "Sus límites muestran que es un modelo fallido, que conviene reemplazar cuanto antes por la simple regla de la mayoría de votos.", "No tiene límites importantes, porque cualquier desacuerdo entre ciudadanos se resuelve si se dan los argumentos suficientes.", "Solo funciona si todos los ciudadanos participan directamente en todas las decisiones del Estado."], "k": "4e70395d"}]}], "salt": "dd26", "cierre": null};</script>
+<script>
+(function () {
+  "use strict";
+  var D = window.DD;
+  var PASS = 3.0;                                  // nota mínima para aprobar
+  var CHAIN = D.chain.map(function (c) { return c.id; });
+  var ACT = {}; D.acts.forEach(function (a) { ACT[a.id] = a; });
+  var ALL = CHAIN.concat(D.extra.map(function (e) { return e.id; }));
+  // v: lecciones completadas · a: puntos por actividad terminada · q: actividad en curso · cur: actividad abierta · p: página
+  var state = { v: [], a: {}, q: {}, cur: null, p: "inicio", to: {} };
+  var LIMIT = 5 * 60 * 1000;                       // tiempo máximo por actividad (5 minutos)
+  var liveUI = null, liveQ = null, ticker = null;
+  var view = {};                                   // orden aleatorio de la pregunta en pantalla
+
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $all(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  function h32(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h.toString(16); }
+  function key() { return h32(D.salt + "|" + Array.prototype.slice.call(arguments).join("|")); }
+  function shuffle(arr) { var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function fmt(n) { var r = Math.round(n * 100) / 100; var s = (Math.abs(r * 10 - Math.round(r * 10)) < 1e-9) ? r.toFixed(1) : r.toFixed(2); return s.replace(".", ","); }
+  function isAct(id) { return !!ACT[id]; }
+  function visited(id) { return state.v.indexOf(id) >= 0; }
+  function actDone(id) { return state.a[id] !== undefined; }
+  function done(id) { return isAct(id) ? actDone(id) : visited(id); }
+  function actNota(a) { return state.a[a.id] / a.q.length * 5; }
+  function doneCount() { return D.acts.filter(function (a) { return actDone(a.id); }).length; }
+  function allActs() { return doneCount() === D.acts.length; }
+  function finalNota() { var s = 0; D.acts.forEach(function (a) { s += actNota(a); }); return s / D.acts.length; }
+  function inProgress() { return state.cur && !actDone(state.cur) ? state.cur : null; }
+  function nextOf(id) { var i = CHAIN.indexOf(id); return i >= 0 && i < CHAIN.length - 1 ? CHAIN[i + 1] : (allActs() ? "resultados" : null); }
+  var CLOSE = D.cierre ? Date.parse(D.cierre) : null;   // fecha de cierre de las actividades (null = sin cierre)
+  function closed() { return !!CLOSE && Date.now() >= CLOSE; }
+  function closeDate() { try { return new Date(CLOSE).toLocaleString("es-CO", { day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "2-digit" }).replace(/\.$/, ""); } catch (e) { return new Date(CLOSE).toString(); } }
+  function unlocked(id) {
+    if (id === "glosario") return true;
+    if (closed() && (CHAIN.indexOf(id) >= 0 || id === "resultados")) return true;
+    if (id === "resultados") return allActs();
+    var i = CHAIN.indexOf(id);
+    if (i < 0) return false;
+    for (var k = 0; k < i; k++) if (!done(CHAIN[k])) return false;
+    return true;
+  }
+  function reachable(id) { var cur = inProgress(); return cur ? id === cur : unlocked(id); }
+  function frontier() { for (var k = 0; k < CHAIN.length; k++) if (!done(CHAIN[k])) return CHAIN[k]; return allActs() ? "resultados" : CHAIN[CHAIN.length - 1]; }
+
+  /* ---------- Estado y SCORM ---------- */
+  function save() {
+    SCORM.setState({ v: state.v, a: state.a, q: state.q, cur: state.cur, p: state.p, to: state.to });
+    var complete = allActs();
+    var nota = complete ? finalNota() : 0;
+    SCORM.report(nota, nota >= PASS, complete);
+  }
+  function load() {
+    var s = SCORM.getState();
+    if (s && typeof s === "object") {
+      state.v = Array.isArray(s.v) ? s.v : [];
+      state.a = (s.a && typeof s.a === "object") ? s.a : {};
+      state.to = (s.to && typeof s.to === "object") ? s.to : {};
+      state.q = (s.q && typeof s.q === "object") ? s.q : {};
+      state.cur = s.cur || null;
+      state.p = s.p || "inicio";
+    }
+  }
+
+  /* ---------- Navegación ---------- */
+  function buildNav() {
+    var ol = $("#nav"); ol.innerHTML = "";
+    var n = 0;
+    function item(it) {
+      var li = el("li", "it k-" + it.kind);
+      var b = el("button"); b.type = "button"; b.dataset.go = it.id;
+      var m = el("span", "mark");
+      if (it.kind === "lesson" && it.id !== "inicio") { n++; m.dataset.n = n; }
+      b.appendChild(m);
+      var lb = el("span", "lbl");
+      if (it.kind === "pause") { var parts = it.label.split(" · "); lb.appendChild(el("small", null, parts[0])); lb.appendChild(document.createTextNode(parts[1])); }
+      else lb.textContent = it.label;
+      b.appendChild(lb);
+      b.addEventListener("click", function () { go(it.id); });
+      li.appendChild(b); ol.appendChild(li);
+    }
+    D.chain.forEach(item);
+    item(D.extra[0]);
+    ol.appendChild(el("li", "grp", "Consulta"));
+    item(D.extra[1]);
+    refreshNav();
+  }
+  function refreshNav() {
+    var cur = inProgress();
+    $all("#nav button").forEach(function (b) {
+      var id = b.dataset.go, li = b.parentNode;
+      var isDone = id === "resultados" ? allActs() : (id === "glosario" ? false : done(id));
+      var can = reachable(id);
+      li.classList.toggle("done", isDone);
+      li.classList.toggle("locked", !unlocked(id));
+      li.classList.toggle("frozen", !!cur && id !== cur && unlocked(id));
+      li.classList.toggle("now", id === frontier() && !isDone);
+      b.disabled = !can;
+      b.title = can ? "" : (cur ? "Termina la actividad en curso para volver al contenido." : "Se abre cuando completes lo anterior.");
+      var m = $(".mark", b);
+      m.textContent = isDone ? "✓" : (m.dataset.n || "");
+      if (id === state.p) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+    });
+    var n = CHAIN.filter(done).length, total = CHAIN.length;
+    $("#progbar").style.width = Math.round(n / total * 100) + "%";
+    $("#progtxt").textContent = Math.round(n / total * 100) + "% del recorrido · Actividades " + doneCount() + " de " + D.acts.length;
+    var sl = $("#sidelock");
+    if (cur) { sl.hidden = false; sl.textContent = "Estás respondiendo la Actividad " + ACT[cur].n + ". Termínala para volver a explorar el contenido."; }
+    else sl.hidden = true;
+    document.body.classList.toggle("in-quiz", !!cur);
+  }
+  function go(id) {
+    if (ALL.indexOf(id) < 0) id = "inicio";
+    if (!reachable(id)) { id = inProgress() || (reachable(state.p) ? state.p : frontier()); }
+    state.p = id;
+    $all(".page").forEach(function (p) { p.classList.toggle("on", p.id === "p-" + id); });
+    if (isAct(id)) renderPause(id);
+    if (id === "resultados") renderResults();
+    if (!isAct(id) && id !== "resultados") { preparePage(id); watchLesson(id); }
+    document.body.classList.remove("menu-open");
+    window.scrollTo(0, 0);
+    var h = $("#p-" + id + " h1, #p-" + id + " h2");
+    if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+    try { history.replaceState(null, "", "#" + id); } catch (e) {}
+    refreshNav(); refreshPagers(); save(); observeReveals(id);
+  }
+  function watchLesson(id) {
+    if (visited(id) || id === "glosario") return;
+    var s = $("#p-" + id + " .sentinel");
+    var mark = function () { if (!visited(id)) { state.v.push(id); refreshNav(); refreshPagers(); save(); } };
+    if (!("IntersectionObserver" in window) || !s) { mark(); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting && state.p === id && !s.hidden) { mark(); io.disconnect(); } });
+    }, { threshold: 0 });
+    io.observe(s);
+    s._io = io;
+  }
+
+  /* ---------- Aparición progresiva al desplazarse ---------- */
+  var revIO = ("IntersectionObserver" in window) ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); revIO.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -8% 0px" }) : null;
+  function observeReveals(id) {
+    $all("#p-" + id + " .reveal:not(.in)").forEach(function (n) { if (revIO) revIO.observe(n); else n.classList.add("in"); });
+  }
+
+  /* ---------- Interacciones de lectura ---------- */
+  // Cada grupo [data-group] exige abrir todos sus elementos; entonces se muestran los bloques [data-gate] y el final de la página.
+  function groupDone(page, g) {
+    var box = $('[data-group="' + g + '"]', page);
+    $all('[data-gate="' + g + '"]', page).forEach(function (n) { n.hidden = false; n.classList.add("opened"); $all(".reveal", n).forEach(function (r) { if (revIO) revIO.observe(r); else r.classList.add("in"); }); });
+    if (box) box.classList.add("complete");
+    checkSentinel(page);
+  }
+  function checkSentinel(page) {
+    var pending = $all("[data-group]", page).some(function (g) { return !g.classList.contains("complete"); });
+    var s = $(".sentinel", page);
+    if (s) s.hidden = pending;
+    var hint = $(".pager .hint", page);
+    if (hint) hint.textContent = pending ? "Completa las casillas de esta página y llega hasta el final para continuar." : "Llega hasta el final de la página para continuar.";
+  }
+  function tracker(page, g, count) {
+    var seen = {};
+    return function (i) {
+      seen[i] = true;
+      var box = $('[data-group="' + g + '"]', page);
+      var n = Object.keys(seen).length;
+      if (box) box.dataset.seen = n;
+      if (n >= count && !(box && box.classList.contains("complete"))) groupDone(page, g);
+    };
+  }
+  var prepared = {};
+  function preparePage(id) {
+    var page = $("#p-" + id);
+    if (!page) return;
+    var already = visited(id);
+    if (!prepared[id]) {
+      prepared[id] = true;
+      setupFlips(page); setupStepper(page); setupCaseTabs(page); setupBalance(page); setupChips(page);
+    }
+    if (already) $all("[data-group]", page).forEach(function (g) { openAll(g); groupDone(page, g.dataset.group); });
+    checkSentinel(page);
+  }
+  function openAll(g) {
+    if (g._openAll) g._openAll();
+  }
+  function setupFlips(page) {
+    $all(".flipwrap", page).forEach(function (w) {
+      var mark = tracker(page, w.dataset.group, +w.dataset.count);
+      var mq = window.matchMedia ? window.matchMedia("(max-width:1060px)") : null, holder = $(".fpanels", w);
+      var show = function (i) {
+        var panel = $('.fpanel[data-for="' + i + '"]', w), tile = $('.flip[data-item="' + i + '"]', w);
+        if (mq && mq.matches) { if (tile.nextSibling !== panel) tile.parentNode.insertBefore(panel, tile.nextSibling); }
+        else if (panel.parentNode !== holder) holder.appendChild(panel);
+        $all(".fpanel", w).forEach(function (p) { p.hidden = p.dataset.for !== String(i); if (!p.hidden) { p.classList.remove("pop"); void p.offsetWidth; p.classList.add("pop"); } });
+        $all(".flip", w).forEach(function (f) { f.classList.toggle("sel", f.dataset.item === String(i)); });
+      };
+      $all(".flip", w).forEach(function (f) {
+        var i = f.dataset.item, front = $(".front", f);
+        front.addEventListener("click", function () {
+          f.classList.add("flipped"); front.setAttribute("aria-expanded", "true"); show(i); mark(i);
+          var b = $(".back", f); b.setAttribute("tabindex", "-1"); setTimeout(function () { b.focus({ preventScroll: true }); }, 350);
+        });
+        $(".seecase", f).addEventListener("click", function () { show(i); var p = $('.fpanel[data-for="' + i + '"]', w); p.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      });
+      w._openAll = function () { $all(".flip", w).forEach(function (f) { f.classList.add("flipped"); mark(f.dataset.item); }); show("0"); };
+    });
+  }
+  function setupStepper(page) {
+    $all(".stepper", page).forEach(function (st) {
+      var cards = $all(".scard", st), lis = $all(".track li", st), btn = $(".scta .btn", st), cur = 0;
+      var mark = tracker(page, st.dataset.group, cards.length);
+      mark(0);
+      function to(n) {
+        cur = n;
+        cards.forEach(function (c, k) { if (k <= n && c.hidden) { c.hidden = false; c.classList.add("pop"); } });
+        lis.forEach(function (l, k) { l.classList.toggle("on", k <= n); });
+        mark(n);
+        if (n >= cards.length - 1) { btn.parentNode.hidden = true; }
+        else btn.textContent = "Siguiente momento (" + (n + 2) + " de " + cards.length + ") →";
+      }
+      btn.textContent = "Siguiente momento (2 de " + cards.length + ") →";
+      btn.addEventListener("click", function () { to(cur + 1); cards[cur].scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+      st._openAll = function () { to(cards.length - 1); };
+    });
+  }
+  function setupCaseTabs(page) {
+    $all(".casetabs", page).forEach(function (ct) {
+      var tabs = $all(".ctab", ct), pans = $all(".cpanel", ct);
+      var mark = tracker(page, ct.dataset.group, tabs.length);
+      function sel(i) {
+        tabs.forEach(function (t) { var on = t.dataset.i === String(i); t.setAttribute("aria-selected", on ? "true" : "false"); if (on) t.classList.add("seen"); });
+        pans.forEach(function (p) { p.hidden = p.dataset.i !== String(i); if (!p.hidden) { p.classList.remove("pop"); void p.offsetWidth; p.classList.add("pop"); } });
+        pans.forEach(function (p) { if (p.hidden) { var v = $("video", p); if (v && !v.paused) v.pause(); } });
+        mark(i);
+      }
+      tabs.forEach(function (t, k) {
+        t.addEventListener("click", function () { sel(t.dataset.i); });
+        t.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") { var n = (k + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length; tabs[n].focus(); sel(tabs[n].dataset.i); }
+        });
+      });
+      ct._openAll = function () { tabs.forEach(function (t) { t.classList.add("seen"); mark(t.dataset.i); }); sel("0"); };
+      sel("0");
+    });
+  }
+  function setupBalance(page) {
+    $all(".balance", page).forEach(function (bx) {
+      var cards = $all(".wcard", bx), beam = $(".beam", bx), wl = $("#wl", bx), wr = $("#wr", bx);
+      var mark = tracker(page, bx.dataset.group, cards.length);
+      function tilt() {
+        var l = $all(".wcard.pro.open", bx).length, r = $all(".wcard.con.open", bx).length;
+        wl.textContent = l; wr.textContent = r;
+        var ang = Math.max(-14, Math.min(14, (r - l) * 5));
+        beam.style.transform = "rotate(" + ang + "deg)";
+        $all(".pan", bx).forEach(function (p) { p.style.transform = "rotate(" + (-ang) + "deg)"; });
+        bx.classList.toggle("level", l === r && l > 0);
+      }
+      cards.forEach(function (c, k) {
+        var b = $(".wt", c);
+        b.addEventListener("click", function () {
+          var open = !c.classList.contains("open");
+          if (!open) return;
+          c.classList.add("open"); b.setAttribute("aria-expanded", "true"); $(".wb", c).hidden = false;
+          tilt(); mark(k);
+        });
+      });
+      bx._openAll = function () { cards.forEach(function (c, k) { c.classList.add("open"); $(".wb", c).hidden = false; $(".wt", c).setAttribute("aria-expanded", "true"); mark(k); }); tilt(); };
+      tilt();
+    });
+  }
+  function setupChips(page) {
+    $all(".progs", page).forEach(function (pg) {
+      var chips = $all(".chip", pg), ps = $all(".progp", pg);
+      chips.forEach(function (c) {
+        c.addEventListener("click", function () {
+          chips.forEach(function (x) { x.setAttribute("aria-pressed", x === c ? "true" : "false"); });
+          ps.forEach(function (p) { p.hidden = p.dataset.i !== c.dataset.i; if (!p.hidden) { p.classList.remove("pop"); void p.offsetWidth; p.classList.add("pop"); } });
+        });
+      });
+    });
+  }
+
+  function buildPagers() {
+    $all('.page[data-kind="lesson"], .page[data-kind="ref"]').forEach(function (page) {
+      var id = page.id.slice(2);
+      var bar = el("div", "pager");
+      var i = CHAIN.indexOf(id);
+      var prev = i > 0 ? CHAIN[i - 1] : null;
+      var b1 = el("button", "btn sec", "← Anterior"); b1.type = "button";
+      if (prev) b1.addEventListener("click", function () { go(prev); }); else b1.style.visibility = "hidden";
+      bar.appendChild(b1);
+      if (id === "glosario") { var bk = el("button", "btn", "Volver al recorrido"); bk.type = "button"; bk.addEventListener("click", function () { go(frontier()); }); bar.appendChild(bk); }
+      else {
+        var b2 = el("button", "btn nextbtn"); b2.type = "button";
+        b2.addEventListener("click", function () { var n = nextOf(id); if (n && reachable(n)) go(n); });
+        bar.appendChild(b2);
+        bar.appendChild(el("p", "hint", ""));
+      }
+      page.appendChild(bar);
+    });
+  }
+  function refreshPagers() {
+    $all(".nextbtn").forEach(function (b) {
+      var page = b.closest(".page"), id = page.id.slice(2), n = nextOf(id);
+      var label = !n ? "Termina las actividades para ver tu nota" : (isAct(n) ? "Ir a la Actividad " + ACT[n].n : (n === "resultados" ? "Ver mi nota" : "Siguiente"));
+      b.textContent = label + (n ? " →" : "");
+      b.disabled = !n || (!visited(id) && !closed());
+      var hint = $(".hint", b.parentNode);
+      if (hint) hint.hidden = visited(id) || !n || closed();
+    });
+  }
+
+  /* ---------- Videos ---------- */
+  function initVideos() {
+    $all("figure.video").forEach(function (f) {
+      var v = $("video", f);
+      v.addEventListener("error", function () { f.classList.add("nofile"); });
+      v.setAttribute("src", "videos/" + f.dataset.video + ".mp4");
+    });
+  }
+
+  /* ---------- Actividades (pausas) ---------- */
+  var TIPO = { unica: "Selección única", vf: "Verdadero o falso", emparejar: "Relacionar", orden: "Ordenar" };
+  function caseBox(a, collapsed) {
+    if (!a.caso) return null;
+    var d = el("details", "casebox"); if (!collapsed) d.open = true;
+    d.appendChild(el("summary", null, "El caso: el agua de Villa Aurora"));
+    var c = el("div", "casebody"); c.innerHTML = a.caso; d.appendChild(c);
+    return d;
+  }
+  function renderPause(id) {
+    var a = ACT[id], box = $("#pz-" + id); box.innerHTML = "";
+    var vid = $("#p-" + id + " figure.video");
+    if (closed() && !actDone(id)) closeActs();
+    if (actDone(id)) { if (vid) vid.hidden = true; box.appendChild(doneCard(a)); return; }
+    if (vid) vid.hidden = false;
+    if (state.cur === id && state.q[id]) { if (remaining(id) <= 0) { timeUp(a); return; } renderQuestion(a, box); return; }
+    var intro = el("div", "pz-start");
+    intro.appendChild(el("p", "lead", a.intro));
+    var chips = el("div", "qtypes");
+    a.q.forEach(function (q, k) { var c = el("span", "qtype t-" + q.tipo); c.appendChild(el("b", null, String(k + 1))); c.appendChild(document.createTextNode(TIPO[q.tipo])); chips.appendChild(c); });
+    intro.appendChild(chips);
+    var ul = el("ul", "pz-rules");
+    ["Las preguntas aparecen una a la vez y en orden aleatorio.", "No podrás regresar a una pregunta ya respondida.",
+     "Tienes 5 minutos. Al terminar el tiempo, la actividad se cierra y se guarda lo que hayas respondido.", "Un solo intento. Tu nota aparecerá al final del recurso."].forEach(function (t) { ul.appendChild(el("li", null, t)); });
+    intro.appendChild(ul);
+    if (CLOSE) intro.appendChild(el("p", "note", "Disponible hasta el " + closeDate() + "."));
+    var cb = caseBox(a, false); if (cb) intro.appendChild(cb);
+    var bt = el("button", "btn big gold", "Comenzar la actividad"); bt.type = "button";
+    bt.addEventListener("click", function () {
+      state.cur = id;
+      state.q[id] = { o: shuffle(a.q).map(function (q) { return q.id; }), i: 0, k: 0, t0: Date.now() };
+      save(); refreshNav(); renderPause(id); window.scrollTo(0, 0);
+    });
+    intro.appendChild(bt);
+    box.appendChild(intro);
+  }
+
+  // Cada tipo devuelve { node, complete(), score() } ; score entre 0 y 1
+  function qUnica(q, onChange) {
+    var order = view[q.id] || (view[q.id] = shuffle(q.o)), chosen = null;
+    var fs = el("div", "opts");
+    order.forEach(function (t, k) {
+      var lab = el("label", "opt");
+      var inp = el("input"); inp.type = "radio"; inp.name = q.id; inp.value = t;
+      inp.addEventListener("change", function () { chosen = t; $all(".opt", fs).forEach(function (o) { o.classList.toggle("sel", o === lab); }); onChange(); });
+      lab.appendChild(inp); lab.appendChild(el("span", "let", "ABCD".charAt(k))); lab.appendChild(el("span", "otxt", t));
+      fs.appendChild(lab);
+    });
+    return { node: fs, complete: function () { return chosen !== null; }, score: function () { return key(q.id, chosen) === q.k ? 1 : 0; } };
+  }
+  function qVF(q, onChange) {
+    var order = view[q.id] || (view[q.id] = shuffle(q.s)), ans = {};
+    var box = el("div", "vflist");
+    order.forEach(function (s, k) {
+      var row = el("div", "vfrow");
+      row.appendChild(el("p", "vfs", s.tx));
+      var seg = el("div", "seg"); seg.setAttribute("role", "radiogroup"); seg.setAttribute("aria-label", "Afirmación " + (k + 1));
+      [["V", "Verdadero"], ["F", "Falso"]].forEach(function (o) {
+        var lab = el("label", "segb");
+        var inp = el("input"); inp.type = "radio"; inp.name = q.id + "_" + s.id; inp.value = o[0];
+        inp.addEventListener("change", function () { ans[s.id] = o[0]; $all(".segb", seg).forEach(function (x) { x.classList.toggle("sel", x === lab); }); row.classList.add("answered"); onChange(); });
+        lab.appendChild(inp); lab.appendChild(el("span", null, o[1])); seg.appendChild(lab);
+      });
+      row.appendChild(seg); box.appendChild(row);
+    });
+    return { node: box,
+      complete: function () { return q.s.every(function (s) { return ans[s.id]; }); },
+      score: function () { var ok = 0; q.s.forEach(function (s) { if (key(q.id, s.id, ans[s.id]) === q.k[s.id]) ok++; }); return ok / q.s.length; } };
+  }
+  function qMatch(q, onChange) {
+    var v = view[q.id] || (view[q.id] = { l: shuffle(q.l), r: q.r.length > 3 || !/^Modelo/.test(q.r[0].tx) ? shuffle(q.r) : q.r }), ans = {};
+    var box = el("div", "mlist");
+    var legend = el("div", "mopts");
+    legend.appendChild(el("span", "mlab", "Opciones:"));
+    v.r.forEach(function (r) { legend.appendChild(el("span", "mchip", r.tx)); });
+    box.appendChild(legend);
+    v.l.forEach(function (l, k) {
+      var row = el("div", "mrow");
+      var p = el("p", "mtx"); p.appendChild(el("span", "mnum", String(k + 1))); p.appendChild(document.createTextNode(l.tx));
+      row.appendChild(p);
+      var sel = el("select", "msel"); sel.setAttribute("aria-label", "Relación para la situación " + (k + 1));
+      var o0 = el("option", null, "Elige una opción…"); o0.value = ""; sel.appendChild(o0);
+      v.r.forEach(function (r) { var o = el("option", null, r.tx); o.value = r.id; sel.appendChild(o); });
+      sel.addEventListener("change", function () { ans[l.id] = sel.value; row.classList.toggle("answered", !!sel.value); onChange(); });
+      row.appendChild(sel); box.appendChild(row);
+    });
+    return { node: box,
+      complete: function () { return q.l.every(function (l) { return ans[l.id]; }); },
+      score: function () { var ok = 0; q.l.forEach(function (l) { if (key(q.id, l.id, ans[l.id]) === q.k[l.id]) ok++; }); return ok / q.l.length; } };
+  }
+  function qOrden(q, onChange) {
+    var order = view[q.id];
+    if (!order) {
+      var tries = 0;
+      do { order = shuffle(q.it); tries++; } while (tries < 20 && order.every(function (it, p) { return key(q.id, it.id, String(p + 1)) === q.k[it.id]; }));
+      view[q.id] = order;
+    }
+    var cur = order.slice(), touched = false;
+    var ol = el("ol", "olist");
+    function draw(focusId, dir) {
+      var first = {}; $all("li", ol).forEach(function (li) { first[li.dataset.id] = li.getBoundingClientRect().top; });
+      ol.innerHTML = "";
+      cur.forEach(function (it, p) {
+        var li = el("li", "oitem"); li.dataset.id = it.id;
+        li.appendChild(el("span", "opos", String(p + 1)));
+        li.appendChild(el("span", "otx", it.tx));
+        var ctr = el("span", "octr");
+        var up = el("button", "obtn", "▲"); up.type = "button"; up.setAttribute("aria-label", "Subir: " + it.tx); up.disabled = p === 0;
+        var dn = el("button", "obtn", "▼"); dn.type = "button"; dn.setAttribute("aria-label", "Bajar: " + it.tx); dn.disabled = p === cur.length - 1;
+        up.addEventListener("click", function () { move(p, -1); });
+        dn.addEventListener("click", function () { move(p, 1); });
+        ctr.appendChild(up); ctr.appendChild(dn); li.appendChild(ctr);
+        ol.appendChild(li);
+      });
+      $all("li", ol).forEach(function (li) {
+        var f = first[li.dataset.id]; if (f == null) return;
+        var d = f - li.getBoundingClientRect().top;
+        if (d) { li.style.transform = "translateY(" + d + "px)"; li.style.transition = "none"; requestAnimationFrame(function () { li.style.transition = ""; li.style.transform = ""; }); }
+      });
+      if (focusId) { var li = $('li[data-id="' + focusId + '"]', ol); var b = $all(".obtn", li)[dir < 0 ? 0 : 1]; if (b && !b.disabled) b.focus(); else $(".obtn:not(:disabled)", li).focus(); }
+    }
+    function move(p, d) {
+      var n = p + d; if (n < 0 || n >= cur.length) return;
+      var t = cur[p]; cur[p] = cur[n]; cur[n] = t; touched = true; draw(t.id, d); onChange();
+    }
+    draw();
+    var wrap = el("div", "owrap");
+    wrap.appendChild(el("p", "ohint", "Usa las flechas para mover cada paso. El 1 es el primero."));
+    wrap.appendChild(ol);
+    var score = function () { var ok = 0; cur.forEach(function (it, p) { if (key(q.id, it.id, String(p + 1)) === q.k[it.id]) ok++; }); return ok / cur.length; };
+    return { node: wrap, complete: function () { return touched; }, score: score, timed: function () { return touched ? score() : 0; } };
+  }
+  function renderQuestion(a, box) {
+    var st = state.q[a.id];
+    var q = a.q.filter(function (x) { return x.id === st.o[st.i]; })[0];
+    var total = st.o.length;
+    var cb = caseBox(a, true); if (cb) box.appendChild(cb);
+    var card = el("div", "qcard m-" + a.modelo);
+    var top = el("div", "qtop");
+    var lab = el("span", "qn", "Pregunta " + (st.i + 1) + " de " + total);
+    top.appendChild(lab);
+    top.appendChild(el("span", "qtype t-" + q.tipo, TIPO[q.tipo]));
+    var dots = el("span", "dots"); dots.setAttribute("aria-hidden", "true");
+    for (var k = 0; k < total; k++) dots.appendChild(el("i", k < st.i ? "past" : (k === st.i ? "cur" : "")));
+    top.appendChild(dots);
+    var tm = el("span", "timer"); tm.setAttribute("role", "timer"); tm.setAttribute("aria-label", "Tiempo restante");
+    top.appendChild(tm); card.appendChild(top);
+    card.appendChild(el("p", "qt", q.t));
+    var send = el("button", "btn gold", st.i + 1 < total ? "Responder y seguir →" : "Responder y terminar"); send.type = "button"; send.disabled = true;
+    var foot = el("div", "qfoot");
+    var note = el("p", "note", q.tipo === "unica" ? "Al responder, la pregunta queda cerrada." : (q.tipo === "orden" ? "Mueve al menos un paso para poder responder. Cada paso en su lugar suma puntos." : "Completa todas las partes para responder. Cada parte correcta suma puntos."));
+    var ui = ({ unica: qUnica, vf: qVF, emparejar: qMatch, orden: qOrden })[q.tipo](q, function () { send.disabled = !ui.complete(); });
+    card.appendChild(ui.node);
+    liveUI = ui; liveQ = q.id;
+    foot.appendChild(note); foot.appendChild(send); card.appendChild(foot);
+    box.appendChild(card);
+    startTicker(a);
+    send.addEventListener("click", function () {
+      if (send.disabled || !ui.complete()) return;
+      send.disabled = true; liveUI = null; liveQ = null;
+      st.k = Math.round((st.k + ui.score()) * 10000) / 10000;
+      st.i++; delete view[q.id];
+      if (st.i >= total) { state.a[a.id] = st.k; delete state.q[a.id]; state.cur = null; stopTicker(); }
+      save(); refreshNav(); refreshPagers(); renderPause(a.id);
+      window.scrollTo(0, 0);
+      var h = $("#pz-" + a.id + " .qt, #pz-" + a.id + " .donecard h3"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+    });
+  }
+  function remaining(id) { var st = state.q[id]; if (!st) return LIMIT; if (!st.t0) st.t0 = Date.now(); return LIMIT - (Date.now() - st.t0); }
+  function mmss(ms) { var t = Math.max(0, Math.ceil(ms / 1000)); var m = Math.floor(t / 60), s = t % 60; return m + ":" + (s < 10 ? "0" : "") + s; }
+  function stopTicker() { if (ticker) { clearInterval(ticker); ticker = null; } }
+  function startTicker(a) {
+    stopTicker();
+    var tick = function () {
+      var r = remaining(a.id);
+      $all(".timer").forEach(function (t) { t.textContent = "⏱ " + mmss(r); t.classList.toggle("warn", r <= 60000); });
+      var sl = $("#sidelock"); if (sl && !sl.hidden) sl.textContent = "Estás respondiendo la Actividad " + a.n + ". Tiempo restante: " + mmss(r) + ". Termínala para volver a explorar el contenido.";
+      if (r <= 0 || closed()) { timeUp(a); if (closed()) closeActs(); }
+    };
+    tick(); ticker = setInterval(tick, 1000);
+  }
+  function timeUp(a) {
+    stopTicker();
+    var st = state.q[a.id];
+    if (!st || actDone(a.id)) return;
+    // La pregunta en pantalla se califica con lo que alcanzó a marcar; las que faltan valen 0.
+    if (liveUI && liveQ === st.o[st.i]) { var sc = 0; try { sc = liveUI.timed ? liveUI.timed() : liveUI.score(); } catch (e) {} st.k = Math.round((st.k + sc) * 10000) / 10000; }
+    liveUI = null; liveQ = null;
+    state.a[a.id] = Math.round(st.k * 10000) / 10000; state.to[a.id] = 1;
+    delete state.q[a.id]; state.cur = null;
+    save(); refreshNav(); refreshPagers();
+    if (state.p === a.id) renderPause(a.id);
+  }
+  // Después de la fecha de cierre: la actividad en curso se guarda y las no respondidas cuentan como 0,0.
+  function closeActs() {
+    if (!closed()) return;
+    var ip = inProgress(); if (ip) { timeUp(ACT[ip]); state.to[ip] = "c"; }
+    var changed = false;
+    D.acts.forEach(function (a) { if (!actDone(a.id)) { state.a[a.id] = 0; state.to[a.id] = "c"; delete state.q[a.id]; changed = true; } });
+    if (changed || ip) { state.cur = null; save(); refreshNav(); refreshPagers(); }
+  }
+  function doneCard(a) {
+    var r = el("div", "donecard");
+    r.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M14 25l7 7 13-15"/></svg>';
+    var tcl = state.to[a.id] === "c";
+    r.appendChild(el("h3", null, tcl ? "La Actividad " + a.n + " está cerrada" : (state.to[a.id] ? "Se acabó el tiempo de la Actividad " + a.n : "Actividad " + a.n + " completada")));
+    if (tcl) {
+      r.appendChild(el("p", null, "El plazo para responder terminó el " + closeDate() + ". Lo que no se respondió antes de esa fecha cuenta como 0,0. Puedes seguir revisando el contenido."));
+      var b0 = el("button", "btn big", "Seguir revisando →"); b0.type = "button";
+      b0.addEventListener("click", function () { go(nextOf(a.id) || "resultados"); });
+      r.appendChild(b0); return r;
+    }
+    var rest = D.acts.length - doneCount();
+    r.appendChild(el("p", null, rest ? (state.to[a.id] ? "La actividad se cerró y se guardó lo que alcanzaste a responder. " : "Tus respuestas quedaron registradas. ") + "Verás tu nota cuando termines las cuatro actividades. Te faltan " + rest + "." : "Terminaste las cuatro actividades. Ya puedes ver tu nota."));
+    var n = nextOf(a.id);
+    var b = el("button", "btn big", n === "resultados" ? "Ver mi nota →" : "Continuar con el recorrido →"); b.type = "button";
+    b.addEventListener("click", function () { go(n || frontier()); });
+    r.appendChild(b);
+    return r;
+  }
+  function renderResults() {
+    var c = $("#res"); c.innerHTML = "";
+    if (!allActs()) { c.appendChild(el("p", null, "Tu nota aparecerá cuando termines las cuatro actividades.")); return; }
+    var n = finalNota(), pass = n >= PASS;
+    var f = el("div", "final " + (pass ? "pass" : "fail"));
+    var ring = el("div", "ring"); ring.style.setProperty("--pct", Math.round(n / 5 * 100));
+    ring.appendChild(el("b", null, fmt(n))); ring.appendChild(el("small", null, "de 5,0"));
+    f.appendChild(ring);
+    var tx = el("div", "final-txt");
+    tx.appendChild(el("p", "kicker", "Nota final · promedio de las cuatro actividades"));
+    tx.appendChild(el("h3", null, pass ? "Aprobaste" : "No alcanzaste la nota mínima"));
+    tx.appendChild(el("p", null, pass ? "La nota mínima es " + fmt(PASS) + "." : "La nota mínima es " + fmt(PASS) + ". Como cada actividad tiene un solo intento, comenta tu situación con tu docente."));
+    f.appendChild(tx); c.appendChild(f);
+    var wrap = el("div", "table-wrap"); var t = el("table");
+    var head = el("tr"); ["Actividad", "Puntos", "Nota (0,0 a 5,0)"].forEach(function (h) { head.appendChild(el("th", null, h)); });
+    var thead = el("thead"); thead.appendChild(head); t.appendChild(thead);
+    var tb = el("tbody");
+    D.acts.forEach(function (a) {
+      var tr = el("tr");
+      tr.appendChild(el("td", null, a.titulo));
+      tr.appendChild(el("td", null, fmt(state.a[a.id]) + " de " + a.q.length));
+      tr.appendChild(el("td", null, fmt(actNota(a))));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); wrap.appendChild(t); c.appendChild(wrap);
+    c.appendChild(el("p", "note", "Puedes volver a leer las lecciones cuando quieras desde el menú lateral."));
+  }
+
+  /* ---------- Modo lectura: tamaño de letra ---------- */
+  var FS = [0.85, 0.92, 1, 1.1, 1.2, 1.32, 1.45], fsi = 2;
+  function applyFS() {
+    document.documentElement.style.setProperty("--fs", FS[fsi]);
+    var v = $("#rdval"); if (v) v.textContent = Math.round(FS[fsi] * 100) + "%";
+    $all(".rd-b").forEach(function (b) { b.disabled = (b.dataset.fs === "-1" && fsi === 0) || (b.dataset.fs === "1" && fsi === FS.length - 1); });
+    try { localStorage.setItem("dd_fs", String(fsi)); } catch (e) {}
+  }
+  function setupReader() {
+    try { var sv = parseInt(localStorage.getItem("dd_fs"), 10); if (sv >= 0 && sv < FS.length) fsi = sv; } catch (e) {}
+    var pop = $("#rdpop"), opener = null;
+    function close() { pop.hidden = true; $all("[data-rd]").forEach(function (b) { b.setAttribute("aria-expanded", "false"); }); if (opener) opener.focus(); opener = null; }
+    $all("[data-rd]").forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (!pop.hidden) { close(); return; }
+        opener = b; b.setAttribute("aria-expanded", "true");
+        var r = b.getBoundingClientRect();
+        pop.style.top = Math.min(window.innerHeight - 200, r.bottom + 8) + "px";
+        pop.style.left = Math.max(12, Math.min(window.innerWidth - 252, r.left)) + "px";
+        pop.hidden = false; $(".rd-b", pop).focus();
+      });
+    });
+    $all("[data-fs]", pop).forEach(function (b) {
+      b.addEventListener("click", function () { var d = +b.dataset.fs; fsi = d === 0 ? 2 : Math.max(0, Math.min(FS.length - 1, fsi + d)); applyFS(); });
+    });
+    document.addEventListener("click", function (e) { if (!pop.hidden && !pop.contains(e.target)) close(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !pop.hidden) close(); });
+    applyFS();
+  }
+
+  /* ---------- Arranque ---------- */
+  function boot() {
+    SCORM.init(); load();
+    buildNav(); buildPagers(); initVideos(); setupReader();
+    var mb = $("#menubtn"); if (mb) mb.addEventListener("click", function () { document.body.classList.toggle("menu-open"); });
+    var sc = $("#scrim"); if (sc) sc.addEventListener("click", function () { document.body.classList.remove("menu-open"); });
+    $all("[data-go]", $("#main")).forEach(function (b) { b.addEventListener("click", function () { go(b.dataset.go); }); });
+    var rs = $("#resetLocal");
+    if (rs) { if (SCORM.connected) rs.hidden = true; else rs.addEventListener("click", function () { SCORM.resetLocal(); location.hash = "inicio"; location.reload(); }); }
+    var ip = inProgress(); if (ip && remaining(ip) <= 0) timeUp(ACT[ip]);
+    if (closed()) closeActs();
+    // Sin fecha de cierre vigente: las actividades cerradas por fecha (sin responder) se vuelven a abrir.
+    if (!closed()) { var ro = false; D.acts.forEach(function (x) { if (state.to[x.id] === "c") { delete state.a[x.id]; delete state.to[x.id]; ro = true; } }); if (ro) { save(); refreshNav(); } }
+    var sc2 = $("#sideclose");
+    if (sc2 && CLOSE) { sc2.hidden = false; sc2.textContent = closed() ? "El plazo terminó el " + closeDate() + ". Puedes revisar todo el contenido, pero las actividades ya no se pueden responder." : "Las actividades estarán abiertas hasta el " + closeDate() + "."; sc2.classList.toggle("is-closed", closed()); }
+    var start = (location.hash || "").replace("#", "");
+    go(inProgress() || (ALL.indexOf(start) >= 0 && reachable(start) ? start : (reachable(state.p) ? state.p : "inicio")));
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+})();
+
+</script>
+</body>
+</html>
